@@ -1,10 +1,13 @@
 package com.example.android.try2;
 
 import android.os.Bundle;
+import android.view.View;
 
+import com.example.android.try2.ui.home.dailyDialogFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -27,4 +30,9 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(navView, navController);
     }
 
+    public void showDialog(View v) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        dailyDialogFragment dailyDialog = new dailyDialogFragment();
+        dailyDialog.show(fragmentManager, "dailyDialog");
+    }
 }

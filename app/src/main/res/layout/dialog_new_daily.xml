@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:minWidth="200dp"
+    android:minHeight="40dp"
+    android:orientation="vertical"
+    android:layout_gravity="center"
+    android:padding="6dp">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Новое задание:"
+        android:textSize="20sp" />
+
+    <EditText
+        android:id="@+id/dailyText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="20"
+        android:hint="Название"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/dailyTime"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="20"
+        android:hint="Время"
+        android:inputType="time" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center"
+        android:text="Ок" />
+
+</LinearLayout>

@@ -35,10 +35,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="end|bottom|right"
-        android:layout_margin="16dp"
+        android:layout_margin="24dp"
         android:clickable="true"
         android:focusable="true"
         android:src="@drawable/ic_add_circle_green_30dp"
-        app:maxImageSize="50dp" />
+        app:elevation="0dp"
+        app:maxImageSize="60dp"
+        android:onClick="showDialog"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
