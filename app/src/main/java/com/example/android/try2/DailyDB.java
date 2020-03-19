@@ -6,7 +6,7 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
-//класс абстрактный, так как вместо new используется builder из состава room
+//абстрактный класс, использующий builder из состава room для создания таблицы
 @Database(entities = DailyData.class, version = 1)
 public abstract class DailyDB extends RoomDatabase {
 
