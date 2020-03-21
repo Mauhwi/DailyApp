@@ -12,7 +12,7 @@ import java.util.List;
 //data access object предоставляет методы для доступа к БД
 @Dao
 public interface DailyDao {
-    //методы без тела, т.к. room автоматически генерирует метод при использовании аннотации @Insert
+    //методы без тела, т.к. room автоматически генерирует метод при использовании аннотации @Insert/...
     @Insert
     void insert(DailyData dailyData);
 
