@@ -14,10 +14,12 @@
         <TextView
             android:id="@+id/image1"
             android:layout_width="wrap_content"
-            android:layout_height="78dp"
+            android:layout_height="92dp"
             android:text="Image here"
             android:layout_alignParentLeft="true"
-            android:background="@color/colorPrimary"/>
+            android:background="@color/colorPrimary"
+            android:gravity="center"
+            android:paddingHorizontal="6dp"/>
 
         <TextView
             android:id="@+id/textView2"
@@ -25,7 +27,7 @@
             android:layout_height="wrap_content"
             android:text="Прогресс сегодня:"
             android:background="@color/colorPrimary"
-            android:textColor="@color/colorAccent"
+            android:textColor="@color/colorTextSecondary"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:paddingTop="6dp"
             android:paddingBottom="10dp"
@@ -42,29 +44,35 @@
             android:background="@color/colorPrimary"
             android:progressDrawable="@drawable/progress_bar_drawable"
             android:layout_below="@id/textView2"
-            android:paddingBottom="16dp"
             android:paddingHorizontal="20dp"
             android:layout_toRightOf="@id/image1"/>
 
-        <androidx.recyclerview.widget.RecyclerView
+        <TextView
+            android:id="@+id/progressText"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:text="20/100"
+            android:layout_toRightOf="@id/image1"
             android:layout_below="@id/progressBar"
+            android:paddingLeft="30dp"
+            android:textColor="@color/colorTextSecondary"
+            android:background="@color/colorPrimary"/>
+
+        <Button
+            android:id="@+id/addDailyButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/progressText"
+            android:background="@color/colorSecondary"
+            android:text="Добавить задание"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_below="@id/addDailyButton"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             tools:listitem="@layout/item_daily"/>
 
     </RelativeLayout>
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/addDaily"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center|bottom"
-        android:layout_margin="24dp"
-        android:clickable="true"
-        android:focusable="true"
-        android:src="@drawable/ic_add_circle_green_30dp"
-        app:elevation="0dp"
-        app:maxImageSize="60dp"
-        android:onClick="showDialog"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
