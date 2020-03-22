@@ -2,8 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/details_item"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_margin="6dp"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="8dp"
+    android:layout_marginHorizontal="8dp"
     android:orientation="vertical">
 
     <View
@@ -26,7 +27,7 @@
             android:layout_weight="6"
             android:padding="4dp"
             android:text="TextView"
-            android:textSize="24dp" />
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"/>
 
         <CheckBox
             android:id="@+id/checkBox"
@@ -51,7 +52,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="TextView"
-            android:textSize="20dp" />
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"/>
 
         <TextView
             android:id="@+id/dailyExpand"
@@ -59,17 +60,16 @@
             android:layout_height="wrap_content"
             android:layout_marginVertical="2dp"
             android:text="TextView"
-            android:textSize="20dp" />
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"/>
 
         <Button
             android:id="@+id/editDailyItem"
             style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="16dp"
             android:text="Edit"
             android:drawableLeft="@drawable/ic_edit_black_24dp"
-            />
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"/>
 
     </LinearLayout>
 
