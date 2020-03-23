@@ -1,62 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
     android:paddingBottom="44dp">
 
     <RelativeLayout
-    android:id="@+id/dailyLayout"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+        android:id="@+id/dailyLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-        <TextView
+        <ImageView
             android:id="@+id/image1"
-            android:layout_width="wrap_content"
+            android:layout_width="92dp"
             android:layout_height="92dp"
-            android:text="Image here"
             android:layout_alignParentLeft="true"
             android:background="@color/colorPrimary"
+            android:contentDescription="@string/upset_cat"
             android:gravity="center"
-            android:paddingHorizontal="6dp"/>
+            android:paddingHorizontal="8dp"
+            android:src="@drawable/cat" />
 
         <TextView
             android:id="@+id/textView2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Прогресс сегодня:"
+            android:layout_toRightOf="@id/image1"
             android:background="@color/colorPrimary"
-            android:textColor="@color/colorTextSecondary"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:paddingHorizontal="20dp"
             android:paddingTop="6dp"
             android:paddingBottom="10dp"
-            android:paddingHorizontal="20dp"
-            android:layout_toRightOf="@id/image1"/>
+            android:text="@string/progress"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textColor="@color/colorText" />
 
         <ProgressBar
             android:id="@+id/progressBar"
             style="@style/Widget.AppCompat.ProgressBar.Horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:max="100"
-            android:progress="20"
-            android:background="@color/colorPrimary"
-            android:progressDrawable="@drawable/progress_bar_drawable"
             android:layout_below="@id/textView2"
+            android:layout_toRightOf="@id/image1"
+            android:background="@color/colorPrimary"
+            android:max="10"
             android:paddingHorizontal="20dp"
-            android:layout_toRightOf="@id/image1"/>
+            android:progress="2"
+            android:progressDrawable="@drawable/progress_bar_drawable" />
 
         <TextView
             android:id="@+id/progressText"
             android:layout_width="match_parent"
             android:layout_height="30dp"
-            android:text="20/100"
-            android:layout_toRightOf="@id/image1"
             android:layout_below="@id/progressBar"
+            android:layout_toRightOf="@id/image1"
+            android:background="@color/colorPrimary"
             android:paddingLeft="30dp"
-            android:textColor="@color/colorTextSecondary"
-            android:background="@color/colorPrimary"/>
+            android:text="2/10"
+            android:textColor="@color/colorText" />
 
         <Button
             android:id="@+id/addDailyButton"
@@ -64,14 +65,14 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/progressText"
             android:background="@color/colorSecondary"
-            android:text="Добавить задание"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large"/>
+            android:text="@string/add_daily_button"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:layout_below="@id/addDailyButton"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:listitem="@layout/item_daily"/>
+            android:layout_below="@id/addDailyButton"
+            tools:listitem="@layout/item_daily" />
 
     </RelativeLayout>
 
