@@ -48,7 +48,8 @@ public abstract class DailyDB extends RoomDatabase {
 
         @Override
         protected Void doInBackground(Void... voids) {
-            dailyDao.insert(new DailyData("Задание", "Детали", "12:20"));
+            dailyDao.insert(new DailyData("Покормить кота", "Помыть тарелку", "12:20"));
+            dailyDao.insert(new DailyData("Сделать упражнения", "Приседания", "14:20"));
             return null;
         }
     }

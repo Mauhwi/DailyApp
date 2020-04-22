@@ -26,11 +26,4 @@ public class HomeFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_home, container, false);
         return root;
     }
-
-    public void showDialog(View v) {
-        FragmentManager manager=getFragmentManager();
-        dailyDialogFragment dailyDialog=new dailyDialogFragment();
-        dailyDialog.show(manager, "dailyDialog");
-
-    }
 }

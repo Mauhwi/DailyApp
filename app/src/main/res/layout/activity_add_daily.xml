@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AddDailyActivity"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+
+        <ImageButton
+            android:id="@+id/imageButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:minWidth="48dp"
+            android:minHeight="48dp"
+            android:src="@drawable/ic_arrow_back_green_24dp" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Новое задание:"
+            android:textSize="20sp"
+            android:padding="8dp"
+            android:textColor="@color/colorPrimary"/>
+    </LinearLayout>
+
+
+    <EditText
+        android:id="@+id/editDailyText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="20"
+        android:minHeight="48dp"
+        android:hint="Название"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/editDailyTime"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="20"
+        android:hint="Время"
+        android:minHeight="48dp"
+        android:inputType="time" />
+
+    <EditText
+        android:id="@+id/editDailyDetails"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="20"
+        android:hint="Детали"
+        android:minHeight="48dp"
+        android:inputType="time" />
+
+    <Button
+        android:id="@+id/add_daily"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center"
+        android:text="Ок"
+        android:minHeight="48dp"
+        android:textColor="@color/colorAccent"
+        android:background="@color/colorPrimary"/>
+
+</LinearLayout>
