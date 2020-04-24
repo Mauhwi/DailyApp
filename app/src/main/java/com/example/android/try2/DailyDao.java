@@ -22,7 +22,11 @@ public interface DailyDao {
     @Delete
     void delete(DailyData dailyData);
 
-    //метод наполнения списка
-    @Query("SELECT * FROM DAILY_TABLE")
-    LiveData<List<DailyData>> getAllNotes();
+    //метод наполнения списка активных заданий
+    @Query("SELECT * FROM DAILY_TABLE WHERE state=1")
+    LiveData<List<DailyData>> getAllDailies();
+
+    //метод наполнения списка неактивных заданий
+    @Query("SELECT * FROM DAILY_TABLE WHERE state=2")
+    LiveData<List<DailyData>> getInactiveDailies();
 }

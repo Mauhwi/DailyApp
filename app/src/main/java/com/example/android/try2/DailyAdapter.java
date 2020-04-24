@@ -40,6 +40,7 @@ public class DailyAdapter extends RecyclerView.Adapter<DailyAdapter.DailyHolder>
         notifyDataSetChanged();
     }
 
+
     class DailyHolder extends RecyclerView.ViewHolder {
         private TextView textViewDaily;
         private TextView textViewTime;

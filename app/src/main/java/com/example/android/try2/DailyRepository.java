@@ -10,6 +10,7 @@ import java.util.List;
 public class DailyRepository {
     private DailyDao dailyDao;
     private LiveData<List<DailyData>> allDailies;
+    private LiveData<List<DailyData>> doneDailies;
 
     //application используется как контекст для создания singleton экземпляра ДБ
     public DailyRepository(Application application) {
@@ -18,7 +19,8 @@ public class DailyRepository {
         // с помощью специального метода databaseBuilder, поэтому Room генерирует весь код
         //и создает подкласс абстрактного класса
         dailyDao = db.dailyDao();
-        allDailies = dailyDao.getAllNotes();
+        allDailies = dailyDao.getAllDailies();
+        doneDailies = dailyDao.getInactiveDailies();
     }
 
     //методы для ViewModel
@@ -34,6 +36,9 @@ public class DailyRepository {
 
     public LiveData<List<DailyData>> getAllDailies() {
         return allDailies;
+    }
+    public LiveData<List<DailyData>> getInactiveDailies() {
+        return doneDailies;
     }
     //Room не позволяет совершать запросы к ДБ с основного треда,
     //поэтому создаются AsyncTasks для всех операций
@@ -55,7 +60,6 @@ public class DailyRepository {
     private static class UpdateDailyAsyncTask extends AsyncTask<DailyData, Void, Void> {
         private DailyDao dailyDao;
 
-        //static поэтому конструктор
         private UpdateDailyAsyncTask(DailyDao dailyDao) {
             this.dailyDao = dailyDao;
         }
@@ -70,7 +74,6 @@ public class DailyRepository {
     private static class DeleteDailyAsyncTask extends AsyncTask<DailyData, Void, Void> {
         private DailyDao dailyDao;
 
-        //static поэтому конструктор
         private DeleteDailyAsyncTask(DailyDao dailyDao) {
             this.dailyDao = dailyDao;
         }
@@ -81,5 +84,4 @@ public class DailyRepository {
             return null;
         }
     }
-//DAILYDATA!(S)!???
 }

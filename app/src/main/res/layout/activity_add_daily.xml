@@ -14,7 +14,7 @@
 
 
         <ImageButton
-            android:id="@+id/imageButton"
+            android:id="@+id/backButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
@@ -40,7 +40,7 @@
         android:ems="20"
         android:minHeight="48dp"
         android:hint="Название"
-        android:inputType="textPersonName" />
+        android:inputType="text" />
 
     <EditText
         android:id="@+id/editDailyTime"
@@ -58,7 +58,8 @@
         android:ems="20"
         android:hint="Детали"
         android:minHeight="48dp"
-        android:inputType="time" />
+        android:inputType="text"
+        android:maxLength="30"/>
 
     <Button
         android:id="@+id/add_daily"

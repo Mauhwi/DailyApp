@@ -39,12 +39,21 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        //активные
         RecyclerView recyclerView = findViewById(R.id.recycler_view_daily);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
 
         final DailyAdapter adapter = new DailyAdapter();
         recyclerView.setAdapter(adapter);
+
+        //неактивные
+        RecyclerView recyclerView2 = findViewById(R.id.recycler_view_dailyDone);
+        recyclerView2.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView2.setHasFixedSize(true);
+
+        final DailyAdapter adapter2 = new DailyAdapter();
+        recyclerView2.setAdapter(adapter2);
 
         dailyViewModel = ViewModelProviders.of(this).get(DailyViewModel.class);
         dailyViewModel.getAllDailies().observe(this, new Observer<List<DailyData>>() {
@@ -53,7 +62,12 @@ public class MainActivity extends AppCompatActivity {
                 adapter.setDailies(dailyData);
             }
         });
-
+        dailyViewModel.getInactiveDailies().observe(this, new Observer<List<DailyData>>() {
+            @Override
+            public void onChanged(List<DailyData> dailyData) {
+                adapter2.setDailies(dailyData);
+            }
+        });
         //------------
         //BottomNavigationView navView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
@@ -76,8 +90,9 @@ public class MainActivity extends AppCompatActivity {
             String title = data.getStringExtra(AddDailyActivity.EXTRA_TEXT);
             String time = data.getStringExtra(AddDailyActivity.EXTRA_TIME);
             String details = data.getStringExtra(AddDailyActivity.EXTRA_DETAILS);
+            int state = data.getIntExtra(AddDailyActivity.EXTRA_STATE, 1);
 
-            DailyData dailyData = new DailyData(title, details, time);
+            DailyData dailyData = new DailyData(title, details, time, state);
             dailyViewModel.insert(dailyData);
 
             Toast.makeText(this, "Задание добавлено", Toast.LENGTH_LONG).show();

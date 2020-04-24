@@ -14,11 +14,13 @@ import java.util.List;
 public class DailyViewModel extends AndroidViewModel {
     private DailyRepository dailyRepository;
     private LiveData<List<DailyData>> allDailies;
+    private LiveData<List<DailyData>> doneDailies;
 
     public DailyViewModel(@NonNull Application application) {
         super(application);
         dailyRepository = new DailyRepository(application);
         allDailies = dailyRepository.getAllDailies();
+        doneDailies = dailyRepository.getInactiveDailies();
     }
 
     public void insert(DailyData dailyData) {
@@ -35,5 +37,9 @@ public class DailyViewModel extends AndroidViewModel {
 
     public LiveData<List<DailyData>> getAllDailies() {
         return allDailies;
+    }
+
+    public LiveData<List<DailyData>> getInactiveDailies() {
+        return doneDailies;
     }
 }

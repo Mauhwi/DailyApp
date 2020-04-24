@@ -68,13 +68,55 @@
             android:text="@string/add_daily_button"
             android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_view_daily"
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@id/addDailyButton"
-            tools:listitem="@layout/item_daily" />
+            android:layout_height="wrap_content"
+            android:layout_below="@id/addDailyButton">
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_marginHorizontal="8dp">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler_view_daily"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:listitem="@layout/item_daily" >
+
+                </androidx.recyclerview.widget.RecyclerView>
+
+                <View
+                    android:id="@+id/item_divider2"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#D3D3D3"
+                    android:layout_marginTop="8dp"/>
+
+                <TextView
+                    android:id="@+id/showCompletedTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Выполненные задания"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    android:layout_marginLeft="10dp"
+                    />
+
+                <View
+                    android:id="@+id/item_divider3"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#D3D3D3" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler_view_dailyDone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:listitem="@layout/item_daily" />
+
+            </LinearLayout>
+        </ScrollView>
     </RelativeLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

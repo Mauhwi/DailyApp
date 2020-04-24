@@ -1,5 +1,6 @@
 package com.example.android.try2;
 
+import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
@@ -11,12 +12,14 @@ public class DailyData {
     private String title;
     private String description;
     private String time;
+    private int state;
 
     //конструктор
-    public DailyData(String title, String description, String time) {
+    public DailyData(String title, String description, String time, int state) {
         this.title = title;
         this.description = description;
         this.time = time;
+        this.state = state;
     }
     //сеттер
     public void setId(int id) {
@@ -38,5 +41,9 @@ public class DailyData {
 
     public String getTime() {
         return time;
+    }
+
+    public int getState() {
+        return state;
     }
 }
