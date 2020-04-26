@@ -24,7 +24,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="end"
         android:layout_margin="16dp"
-        android:src="@drawable/ic_add_circle_black_48dp"
+        android:src="@drawable/ic_add_circle_48dp"
         app:backgroundTint="@color/colorAccent"
         app:elevation="8dp"
         app:fabCustomSize="60dp"
