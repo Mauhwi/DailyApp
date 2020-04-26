@@ -4,14 +4,22 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.android.try2.ui.home.DailyFragment;
 import com.example.android.try2.ui.home.DailyViewModel;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+import androidx.navigation.ui.AppBarConfiguration;
+import androidx.navigation.ui.NavigationUI;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -19,18 +27,22 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     //код запроса
+    private DailyViewModel dailyViewModel;
     public static final int ADD_DAILY_REQUEST = 1;
     //------
-    private DailyViewModel dailyViewModel;
-    //------
+
+    public void onClickExpand(View b) {
+
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //should be activity_main
-        setContentView(R.layout.fragment_home);
-        //------------
+        setContentView(R.layout.activity_main);
 
-        Button buttonAddDaily = findViewById(R.id.addDailyButton);
+        //------------
+        dailyViewModel = ViewModelProviders.of(this).get(DailyViewModel.class);
+        FloatingActionButton buttonAddDaily = findViewById(R.id.floating_button);
         buttonAddDaily.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -39,41 +51,11 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        //активные
-        RecyclerView recyclerView = findViewById(R.id.recycler_view_daily);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setHasFixedSize(true);
-
-        final DailyAdapter adapter = new DailyAdapter();
-        recyclerView.setAdapter(adapter);
-
-        //неактивные
-        RecyclerView recyclerView2 = findViewById(R.id.recycler_view_dailyDone);
-        recyclerView2.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView2.setHasFixedSize(true);
-
-        final DailyAdapter adapter2 = new DailyAdapter();
-        recyclerView2.setAdapter(adapter2);
-
-        dailyViewModel = ViewModelProviders.of(this).get(DailyViewModel.class);
-        dailyViewModel.getAllDailies().observe(this, new Observer<List<DailyData>>() {
-            @Override
-            public void onChanged(List<DailyData> dailyData) {
-                adapter.setDailies(dailyData);
-            }
-        });
-        dailyViewModel.getInactiveDailies().observe(this, new Observer<List<DailyData>>() {
-            @Override
-            public void onChanged(List<DailyData> dailyData) {
-                adapter2.setDailies(dailyData);
-            }
-        });
-        //------------
         //BottomNavigationView navView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         //AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-               //R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications)
+               //R.id.navigation_home, R.id.navigation_dashboard)
                 //.build();
         //NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         //NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);

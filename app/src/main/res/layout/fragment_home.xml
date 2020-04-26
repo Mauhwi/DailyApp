@@ -59,19 +59,11 @@
             android:text="2/10"
             android:textColor="@color/colorText" />
 
-        <Button
-            android:id="@+id/addDailyButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/progressText"
-            android:background="@color/colorSecondary"
-            android:text="@string/add_daily_button"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/addDailyButton">
+            android:layout_below="@id/image1">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -101,7 +93,8 @@
                     android:text="Выполненные задания"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                     android:layout_marginLeft="10dp"
-                    />
+                    android:onClick="onClickExpand"
+                    android:clickable="true"/>
 
                 <View
                     android:id="@+id/item_divider3"

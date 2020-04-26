@@ -12,6 +12,7 @@ public class DailyData {
     private String title;
     private String description;
     private String time;
+    @ColumnInfo(defaultValue = "1")
     private int state;
 
     //конструктор
