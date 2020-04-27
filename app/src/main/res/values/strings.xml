@@ -2,7 +2,6 @@
     <string name="app_name">Try2</string>
     <string name="title_home">Задания</string>
     <string name="title_dashboard">Лекарства</string>
-    <string name="title_notifications">Notifications</string>
     <string name="progress">Прогресс сегодня:</string>
     <string name="add_daily_button">Добавить задание</string>
     <string name="upset_cat">Недовольный кот</string>

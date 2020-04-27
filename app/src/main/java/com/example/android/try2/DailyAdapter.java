@@ -13,6 +13,7 @@ import java.util.List;
 
 public class DailyAdapter extends RecyclerView.Adapter<DailyAdapter.DailyHolder> {
     private List<DailyData> dailies = new ArrayList<>();
+    private onItemClickListener listener;
 
     @NonNull
     @Override
@@ -51,6 +52,24 @@ public class DailyAdapter extends RecyclerView.Adapter<DailyAdapter.DailyHolder>
             textViewDaily = itemView.findViewById(R.id.daily);
             textViewTime = itemView.findViewById(R.id.dailyTime);
             textViewDescription = itemView.findViewById(R.id.dailyExpand);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    int position = getAdapterPosition();
+                    if (listener != null && position != RecyclerView.NO_POSITION) {
+                    listener.onItemClick(dailies.get(position));
+                    }
+                }
+            });
         }
+    }
+
+    public interface onItemClickListener {
+        void onItemClick(DailyData dailyData);
+    }
+
+    public void setOnItemClickListener(onItemClickListener listener) {
+        this.listener = listener;
     }
 }

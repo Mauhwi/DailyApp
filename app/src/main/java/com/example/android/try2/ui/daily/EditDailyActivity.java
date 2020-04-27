@@ -1,17 +1,18 @@
-package com.example.android.try2;
+package com.example.android.try2.ui.daily;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
-public class AddDailyActivity extends AppCompatActivity {
-    //Intent ключи
+import com.example.android.try2.R;
+
+public class EditDailyActivity extends AppCompatActivity {
+    public static final String EXTRA_ID = "com.example.android.try2.EXTRA_ID";
     public static final String EXTRA_TEXT = "com.example.android.try2.EXTRA_TEXT";
     public static final String EXTRA_TIME = "com.example.android.try2.EXTRA_TIME";
     public static final String EXTRA_DETAILS = "com.example.android.try2.EXTRA_DETAILS";
@@ -24,32 +25,30 @@ public class AddDailyActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_daily);
+        setContentView(R.layout.activity_edit_daily);
 
-        editTextTitle = findViewById(R.id.editDailyText);
-        editTextTime = findViewById(R.id.editDailyTime);
-        editTextDetails = findViewById(R.id.editDailyDetails);
+        editTextTitle = findViewById(R.id.editTitleText);
+        editTextTime = findViewById(R.id.editTimeText);
+        editTextDetails = findViewById(R.id.editDetailsText);
 
-        final Button button = findViewById(R.id.add_daily);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                saveDaily();
-            }
-        });
+        Intent intent = getIntent();
+        editTextTitle.setText(intent.getStringExtra(EXTRA_TEXT));
+        editTextTime.setText(intent.getStringExtra(EXTRA_TIME));
+        editTextDetails.setText(intent.getStringExtra(EXTRA_DETAILS));
 
-        final ImageButton backButton = findViewById(R.id.backButton);
+        final ImageButton backButton = findViewById(R.id.editBackButton);
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
+                updateDaily();
             }
         });
 
+
     }
 
-    private void saveDaily() {
-        String title = editTextTitle.getText().toString();
+    private void updateDaily() {
+        String title =  editTextTitle.getText().toString();
         String time = editTextTime.getText().toString();
         String details = editTextDetails.getText().toString();
         int state = 1;
@@ -65,8 +64,12 @@ public class AddDailyActivity extends AppCompatActivity {
         data.putExtra(EXTRA_DETAILS, details);
         data.putExtra(EXTRA_STATE, state);
 
+        int id = getIntent().getIntExtra(EXTRA_ID, -1);
+        if (id != -1) {
+            data.putExtra(EXTRA_ID, id);
+        }
+
         setResult(RESULT_OK, data);
         finish();
     }
-
 }

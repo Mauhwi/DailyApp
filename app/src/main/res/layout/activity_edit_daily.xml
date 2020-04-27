@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="8dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/editAct">
+
+        <ImageButton
+            android:id="@+id/editBackButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:minWidth="48dp"
+            android:minHeight="48dp"
+            android:src="@drawable/ic_arrow_back_green_24dp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Редактирование:"
+            android:textSize="20sp"
+            android:padding="10dp"
+            android:textColor="@color/colorPrimary"/>
+
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/editTitleText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Название"
+        android:inputType="textPersonName"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:layout_below="@id/editAct"/>
+
+    <EditText
+        android:id="@+id/editTimeText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="time"
+        android:layout_below="@+id/editTitleText"
+        android:hint="Время"/>
+
+    <EditText
+        android:id="@+id/editDetailsText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editTimeText"
+        android:ems="10"
+        android:hint="Детали"
+        android:inputType="textPersonName"
+        android:singleLine="false" />
+
+    <Button
+        android:id="@+id/completeDailyEdit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editDetailsText"
+        android:layout_centerHorizontal="true"
+        android:background="@color/colorPrimary"
+        android:text="Выполнить"
+        android:textColor="@color/colorAccent"
+        android:drawableLeft="@drawable/ic_done_26dp"
+        android:minWidth="130dp"
+        android:padding="4dp" />
+
+</RelativeLayout>

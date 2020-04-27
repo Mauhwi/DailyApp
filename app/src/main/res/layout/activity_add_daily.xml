@@ -4,8 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AddDailyActivity"
-    android:orientation="vertical">
+    tools:context=".ui.daily.AddDailyActivity"
+    android:orientation="vertical"
+    android:padding="8dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -28,22 +29,23 @@
             android:layout_height="wrap_content"
             android:text="Новое задание:"
             android:textSize="20sp"
-            android:padding="8dp"
+            android:padding="10dp"
             android:textColor="@color/colorPrimary"/>
     </LinearLayout>
 
 
     <EditText
-        android:id="@+id/editDailyText"
+        android:id="@+id/addDailyText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="20"
         android:minHeight="48dp"
         android:hint="Название"
-        android:inputType="text" />
+        android:inputType="text"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"/>
 
     <EditText
-        android:id="@+id/editDailyTime"
+        android:id="@+id/addDailyTime"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="20"
@@ -52,7 +54,7 @@
         android:inputType="time" />
 
     <EditText
-        android:id="@+id/editDailyDetails"
+        android:id="@+id/addDailyDetails"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="20"

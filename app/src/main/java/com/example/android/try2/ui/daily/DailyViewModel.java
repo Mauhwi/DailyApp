@@ -1,4 +1,4 @@
-package com.example.android.try2.ui.home;
+package com.example.android.try2.ui.daily;
 
 import android.app.Application;
 
