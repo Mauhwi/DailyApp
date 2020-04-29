@@ -1,10 +1,13 @@
 package com.example.android.try2.ui.daily;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.telecom.TelecomManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -15,6 +18,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.android.try2.DailyAdapter;
+import com.example.android.try2.DailyDB;
 import com.example.android.try2.DailyData;
 import com.example.android.try2.MainActivity;
 import com.example.android.try2.R;
@@ -32,7 +36,7 @@ public class DailyFragment extends Fragment {
 
         View rootView = inflater.inflate(R.layout.fragment_home, container, false);
         //активные
-        RecyclerView recyclerView = rootView.findViewById(R.id.recycler_view_daily);
+        final RecyclerView recyclerView = rootView.findViewById(R.id.recycler_view_daily);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setHasFixedSize(true);
 
@@ -92,11 +96,23 @@ public class DailyFragment extends Fragment {
             String details = data.getStringExtra(EditDailyActivity.EXTRA_DETAILS);
             int state = data.getIntExtra(EditDailyActivity.EXTRA_STATE, 1);
 
+
             DailyData dailyData = new DailyData(title, details, time, state);
             dailyData.setId(id);
             dailyViewModel.update(dailyData);
 
             Toast.makeText(getActivity(), "Задание обновлено", Toast.LENGTH_LONG).show();
+        }
+
+        else if (requestCode == EDIT_DAILY_REQUEST && resultCode == 12) {
+            final int id = data.getIntExtra(EditDailyActivity.EXTRA_ID, -1);
+            AsyncTask.execute(new Runnable() {
+                @Override
+                public void run() {
+                    DailyData dailyData = DailyDB.getInstance(getActivity()).dailyDao().findDailyById(id);
+                    dailyViewModel.delete(dailyData);
+                }
+            });
         }
         //если закрыто с помощью кнопки назад
         else {

@@ -5,4 +5,8 @@
     <string name="progress">Прогресс сегодня:</string>
     <string name="add_daily_button">Добавить задание</string>
     <string name="upset_cat">Недовольный кот</string>
+    <string name="delete_dialog_text">Удалить задание?</string>
+    <string name="ok">ОК</string>
+    <string name="nope">Отменить</string>
+
 </resources>

@@ -11,6 +11,7 @@ public class DailyRepository {
     private DailyDao dailyDao;
     private LiveData<List<DailyData>> allDailies;
     private LiveData<List<DailyData>> doneDailies;
+    private DailyData dailyById;
 
     //application используется как контекст для создания singleton экземпляра ДБ
     public DailyRepository(Application application) {
@@ -40,6 +41,13 @@ public class DailyRepository {
     public LiveData<List<DailyData>> getInactiveDailies() {
         return doneDailies;
     }
+
+    public DailyData findDailyById(int id) {
+        dailyById = dailyDao.findDailyById(id);
+        return dailyById;
+    }
+
+
     //Room не позволяет совершать запросы к ДБ с основного треда,
     //поэтому создаются AsyncTasks для всех операций
     private static class InsertDailyAsyncTask extends AsyncTask<DailyData, Void, Void> {
@@ -84,4 +92,5 @@ public class DailyRepository {
             return null;
         }
     }
+
 }

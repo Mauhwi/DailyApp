@@ -25,7 +25,7 @@ public class DailyAdapter extends RecyclerView.Adapter<DailyAdapter.DailyHolder>
 
     @Override
     public void onBindViewHolder(@NonNull DailyHolder holder, int position) {
-        DailyData currentDaily =dailies.get(position);
+        DailyData currentDaily = dailies.get(position);
         holder.textViewDaily.setText(currentDaily.getTitle());
         holder.textViewTime.setText(currentDaily.getTime());
         holder.textViewDescription.setText(currentDaily.getDescription());
@@ -39,6 +39,10 @@ public class DailyAdapter extends RecyclerView.Adapter<DailyAdapter.DailyHolder>
     public void setDailies(List<DailyData> dailies) {
         this.dailies = dailies;
         notifyDataSetChanged();
+    }
+
+    public DailyData getDailyAt(int position) {
+        return dailies.get(position);
     }
 
 

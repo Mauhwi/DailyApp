@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="44dp">
+    android:layout_marginBottom="?attr/actionBarSize">
 
     <RelativeLayout
         android:id="@+id/dailyLayout"
@@ -68,45 +68,46 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:layout_marginHorizontal="8dp">
+                android:layout_marginHorizontal="8dp"
+                android:orientation="vertical">
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recycler_view_daily"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    tools:listitem="@layout/item_daily" >
+                    tools:listitem="@layout/item_daily">
 
                 </androidx.recyclerview.widget.RecyclerView>
 
                 <View
-                    android:id="@+id/item_divider2"
+                    android:id="@+id/item_divider"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="#D3D3D3"
-                    android:layout_marginTop="8dp"/>
+                    android:layout_marginHorizontal="8dp"
+                    android:layout_marginTop="6dp"
+                    android:background="#D3D3D3" />
 
                 <TextView
                     android:id="@+id/showCompletedTextView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Выполненные задания"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginHorizontal="10dp"
                     android:layout_marginLeft="10dp"
+                    android:layout_marginTop="8dp"
+                    android:clickable="true"
+                    android:drawableRight="@drawable/ic_expand_more_black_40dp"
+                    android:gravity="center_vertical"
                     android:onClick="onClickExpand"
-                    android:clickable="true"/>
-
-                <View
-                    android:id="@+id/item_divider3"
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="#D3D3D3" />
+                    android:text="Выполненные задания (1):"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recycler_view_dailyDone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    tools:listitem="@layout/item_daily" />
+                    tools:listitem="@layout/item_daily"
+                    android:paddingBottom="26dp"/>
 
             </LinearLayout>
         </ScrollView>

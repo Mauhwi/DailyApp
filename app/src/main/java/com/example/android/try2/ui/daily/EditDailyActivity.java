@@ -1,7 +1,10 @@
 package com.example.android.try2.ui.daily;
 
+import androidx.annotation.ColorRes;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -44,8 +47,41 @@ public class EditDailyActivity extends AppCompatActivity {
             }
         });
 
+        final ImageButton deleteButton = findViewById(R.id.deleteButton);
+        deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(EditDailyActivity.this, R.style.AlertDialogCustom);
+                builder.setMessage("Удалить задание?")
+                        .setCancelable(false)
+                        .setPositiveButton("ОК", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                deleteDaily();
+                                EditDailyActivity.this.finish();
+                            }
+                        })
+                        .setNegativeButton("Отмена", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        });
+                AlertDialog alert = builder.create();
+                alert.show();
+            }
+        });
+
 
     }
+
+    private void deleteDaily() {
+        int id = getIntent().getIntExtra(EXTRA_ID, -1);
+        Intent data = new Intent();
+        data.putExtra(EXTRA_ID, id);
+
+        setResult(12, data);
+        finish();
+    }
+
 
     private void updateDaily() {
         String title =  editTextTitle.getText().toString();

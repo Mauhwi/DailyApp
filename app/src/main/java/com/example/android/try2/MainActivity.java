@@ -73,7 +73,6 @@ public class MainActivity extends AppCompatActivity {
 
             DailyData dailyData = new DailyData(title, details, time, state);
             dailyViewModel.insert(dailyData);
-
             Toast.makeText(this, "Задание добавлено", Toast.LENGTH_LONG).show();
         }
         //если закрыто с помощью кнопки назад

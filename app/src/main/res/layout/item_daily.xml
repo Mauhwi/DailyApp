@@ -8,10 +8,18 @@
     android:layout_marginTop="8dp"
     android:focusable="true">
 
+    <View
+        android:id="@+id/item_divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="6dp"
+        android:background="#D3D3D3" />
+
     <TextView
         android:id="@+id/daily"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/item_divider"
         android:layout_alignParentLeft="true"
         android:layout_margin="4dp"
         android:layout_toLeftOf="@+id/dailyCheckBox"
@@ -20,7 +28,7 @@
 
     <CheckBox
         android:id="@+id/dailyCheckBox"
-        style="@style/Widget.AppCompat.CompoundButton.CheckBox"
+        android:button="@drawable/customcheckbox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
@@ -30,8 +38,8 @@
         android:accessibilityLiveRegion="polite"
         android:minWidth="48dp"
         android:minHeight="48dp"
-        android:scaleX="1.2"
-        android:scaleY="1.2"
+        android:scaleX="1.1"
+        android:scaleY="1.1"
         tools:text="&#8203;" />
 
     <TextView
@@ -55,13 +63,5 @@
         android:layout_marginLeft="4dp"
         android:text="Детали задания"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
-
-    <View
-        android:id="@+id/item_divider"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_below="@id/dailyExpand"
-        android:layout_marginTop="6dp"
-        android:background="#D3D3D3" />
 
 </RelativeLayout>

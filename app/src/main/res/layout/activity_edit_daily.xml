@@ -8,23 +8,36 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/editAct">
+        android:id="@+id/editAct"
+        android:weightSum="6">
 
         <ImageButton
             android:id="@+id/editBackButton"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:background="@android:color/transparent"
             android:minWidth="48dp"
             android:minHeight="48dp"
             android:src="@drawable/ic_arrow_back_green_24dp" />
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="4"
             android:layout_height="wrap_content"
             android:text="Редактирование:"
             android:textSize="20sp"
             android:padding="10dp"
             android:textColor="@color/colorPrimary"/>
+
+        <ImageButton
+            android:id="@+id/deleteButton"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:minWidth="48dp"
+            android:minHeight="48dp"
+            android:src="@drawable/ic_delete_30dp" />
 
     </LinearLayout>
 
@@ -36,7 +49,7 @@
         android:hint="Название"
         android:inputType="textPersonName"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:layout_below="@id/editAct"/>
+        android:layout_below="@id/editAct" />
 
     <EditText
         android:id="@+id/editTimeText"
