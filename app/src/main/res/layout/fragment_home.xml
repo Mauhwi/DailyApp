@@ -43,9 +43,7 @@
             android:layout_below="@id/textView2"
             android:layout_toRightOf="@id/image1"
             android:background="@color/colorPrimary"
-            android:max="10"
             android:paddingHorizontal="20dp"
-            android:progress="2"
             android:progressDrawable="@drawable/progress_bar_drawable" />
 
         <TextView

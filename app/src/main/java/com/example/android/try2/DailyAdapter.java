@@ -41,10 +41,6 @@ public class DailyAdapter extends RecyclerView.Adapter<DailyAdapter.DailyHolder>
         notifyDataSetChanged();
     }
 
-    public DailyData getDailyAt(int position) {
-        return dailies.get(position);
-    }
-
 
     class DailyHolder extends RecyclerView.ViewHolder {
         private TextView textViewDaily;

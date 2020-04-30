@@ -7,6 +7,8 @@ import android.telecom.TelecomManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,7 +36,7 @@ public class DailyFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
-        View rootView = inflater.inflate(R.layout.fragment_home, container, false);
+        final View rootView = inflater.inflate(R.layout.fragment_home, container, false);
         //активные
         final RecyclerView recyclerView = rootView.findViewById(R.id.recycler_view_daily);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -77,6 +79,19 @@ public class DailyFragment extends Fragment {
                 startActivityForResult(intent, EDIT_DAILY_REQUEST);
             }
         });
+
+        rootView.getViewTreeObserver()
+                .addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                    @Override
+                    public void onGlobalLayout() {
+                        int activeTasks = adapter.getItemCount();
+                        int completedTasks = adapter2.getItemCount();
+                        ProgressBar progressBar = rootView.findViewById(R.id.progressBar);
+                        progressBar.setMax(activeTasks + completedTasks);
+                        progressBar.setProgress(completedTasks);
+
+                    }
+                });
 
         return rootView;
     }
