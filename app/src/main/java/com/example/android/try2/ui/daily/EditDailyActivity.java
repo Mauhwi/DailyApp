@@ -8,6 +8,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
@@ -38,6 +39,18 @@ public class EditDailyActivity extends AppCompatActivity {
         editTextTitle.setText(intent.getStringExtra(EXTRA_TEXT));
         editTextTime.setText(intent.getStringExtra(EXTRA_TIME));
         editTextDetails.setText(intent.getStringExtra(EXTRA_DETAILS));
+
+        int state = getIntent().getIntExtra(EXTRA_STATE, 1);
+        Button completeDailyButton = findViewById(R.id.completeDaily);
+        if (state == 2) {
+            completeDailyButton.setText("Вернуть");
+        }
+        completeDailyButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                changeStateDaily();
+            }
+        });
 
         final ImageButton backButton = findViewById(R.id.editBackButton);
         backButton.setOnClickListener(new View.OnClickListener() {
@@ -87,7 +100,7 @@ public class EditDailyActivity extends AppCompatActivity {
         String title =  editTextTitle.getText().toString();
         String time = editTextTime.getText().toString();
         String details = editTextDetails.getText().toString();
-        int state = 1;
+        int state = getIntent().getIntExtra(EXTRA_STATE, 1);
 
         if (title.trim().isEmpty() || time.trim().isEmpty() || details.trim().isEmpty()) {
             Toast.makeText(this, "Пожалуйста введите задание, время и детали", Toast.LENGTH_SHORT).show();
@@ -107,5 +120,14 @@ public class EditDailyActivity extends AppCompatActivity {
 
         setResult(RESULT_OK, data);
         finish();
+    }
+
+    private void changeStateDaily() {
+        int id = getIntent().getIntExtra(EXTRA_ID, -1);
+        Intent data = new Intent();
+        data.putExtra(EXTRA_ID, id);
+        setResult(345, data);
+        finish();
+
     }
 }

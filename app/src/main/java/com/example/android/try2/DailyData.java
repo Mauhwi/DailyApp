@@ -27,6 +27,10 @@ public class DailyData {
         this.id = id;
     }
 
+    public void setState(int state) {
+        this.state = state;
+    }
+
     //геттеры
     public int getId() {
         return id;

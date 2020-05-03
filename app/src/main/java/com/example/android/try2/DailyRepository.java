@@ -47,6 +47,20 @@ public class DailyRepository {
         return dailyById;
     }
 
+    private static class FindDailyByIdAsyncTask extends AsyncTask<DailyData, Void, Void> {
+        private DailyDao dailyDao;
+
+        private FindDailyByIdAsyncTask(DailyDao dailyDao) {
+            this.dailyDao = dailyDao;
+        }
+
+        @Override
+        protected Void doInBackground(DailyData... dailyData) {
+            dailyDao.update(dailyData[0]);
+            return null;
+        }
+    }
+
 
     //Room не позволяет совершать запросы к ДБ с основного треда,
     //поэтому создаются AsyncTasks для всех операций

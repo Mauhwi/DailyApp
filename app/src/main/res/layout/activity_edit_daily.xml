@@ -71,7 +71,7 @@
         android:singleLine="false" />
 
     <Button
-        android:id="@+id/completeDailyEdit"
+        android:id="@+id/completeDaily"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/editDetailsText"

@@ -3,11 +3,15 @@ package com.example.android.try2.ui.daily;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Looper;
 import android.telecom.TelecomManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
+import android.widget.CheckBox;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -33,6 +37,7 @@ public class DailyFragment extends Fragment {
     private DailyViewModel dailyViewModel;
     public static final int EDIT_DAILY_REQUEST = 2;
 
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
@@ -44,7 +49,6 @@ public class DailyFragment extends Fragment {
 
         final DailyAdapter adapter = new DailyAdapter();
         recyclerView.setAdapter(adapter);
-
         //неактивные
         RecyclerView recyclerView2 = rootView.findViewById(R.id.recycler_view_dailyDone);
         recyclerView2.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -78,8 +82,36 @@ public class DailyFragment extends Fragment {
                 intent.putExtra(EditDailyActivity.EXTRA_STATE, dailyData.getState());
                 startActivityForResult(intent, EDIT_DAILY_REQUEST);
             }
+
+            @Override
+            public void checkboxViewOnClick(DailyData dailyData){
+                dailyData.setState(2);
+                dailyViewModel.update(dailyData);
+            }
         });
 
+        adapter2.setOnItemClickListener(new DailyAdapter.onItemClickListener() {
+            @Override
+            public void onItemClick(DailyData dailyData) {
+                Intent intent = new Intent(getActivity(), EditDailyActivity.class);
+                intent.putExtra(EditDailyActivity.EXTRA_ID, dailyData.getId());
+                intent.putExtra(EditDailyActivity.EXTRA_TEXT, dailyData.getTitle());
+                intent.putExtra(EditDailyActivity.EXTRA_TIME, dailyData.getTime());
+                intent.putExtra(EditDailyActivity.EXTRA_DETAILS, dailyData.getDescription());
+                intent.putExtra(EditDailyActivity.EXTRA_STATE, dailyData.getState());
+                startActivityForResult(intent, EDIT_DAILY_REQUEST);
+            }
+            @Override
+            public void checkboxViewOnClick(DailyData dailyData){
+                dailyData.setState(1);
+                dailyViewModel.update(dailyData);
+            }
+
+
+        });
+
+
+        //TODO: must be a better way :(
         rootView.getViewTreeObserver()
                 .addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
                     @Override
@@ -89,9 +121,9 @@ public class DailyFragment extends Fragment {
                         ProgressBar progressBar = rootView.findViewById(R.id.progressBar);
                         progressBar.setMax(activeTasks + completedTasks);
                         progressBar.setProgress(completedTasks);
-
                     }
                 });
+
 
         return rootView;
     }
@@ -124,14 +156,33 @@ public class DailyFragment extends Fragment {
             AsyncTask.execute(new Runnable() {
                 @Override
                 public void run() {
-                    DailyData dailyData = DailyDB.getInstance(getActivity()).dailyDao().findDailyById(id);
+                    DailyData dailyData = dailyViewModel.findDailyById(id);
                     dailyViewModel.delete(dailyData);
                 }
             });
         }
+
+        else if (requestCode == EDIT_DAILY_REQUEST && resultCode == 345) {
+            final int id = data.getIntExtra(EditDailyActivity.EXTRA_ID, -1);
+            AsyncTask.execute(new Runnable() {
+                @Override
+                public void run() {
+                    DailyData dailyData = dailyViewModel.findDailyById(id);
+                    if (dailyData.getState() == 1 ) {
+                        dailyData.setState(2);
+                        dailyViewModel.update(dailyData);
+                    } else {
+                        dailyData.setState(1);
+                        dailyViewModel.update(dailyData);
+                    }
+                }
+            });
+        }
+
         //если закрыто с помощью кнопки назад
         else {
             Toast.makeText(getActivity(), "Задание отменено", Toast.LENGTH_LONG).show();
         }
+
     }
 }

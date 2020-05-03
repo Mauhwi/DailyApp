@@ -21,7 +21,6 @@ public class DailyViewModel extends AndroidViewModel {
         dailyRepository = new DailyRepository(application);
         allDailies = dailyRepository.getAllDailies();
         doneDailies = dailyRepository.getInactiveDailies();
-
     }
 
     public void insert(DailyData dailyData) {
@@ -48,4 +47,5 @@ public class DailyViewModel extends AndroidViewModel {
         DailyData dailyById = dailyRepository.findDailyById(id);
         return dailyById;
     }
+
 }
