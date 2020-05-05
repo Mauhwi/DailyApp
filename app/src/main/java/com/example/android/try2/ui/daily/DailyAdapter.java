@@ -1,4 +1,4 @@
-package com.example.android.try2;
+package com.example.android.try2.ui.daily;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +9,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.android.try2.DB.DailyDB.DailyData;
+import com.example.android.try2.R;
 
 import java.util.ArrayList;
 import java.util.List;

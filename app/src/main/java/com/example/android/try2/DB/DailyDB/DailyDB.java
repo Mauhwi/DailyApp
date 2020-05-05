@@ -1,4 +1,4 @@
-package com.example.android.try2;
+package com.example.android.try2.DB.DailyDB;
 
 import android.content.Context;
 import android.os.AsyncTask;

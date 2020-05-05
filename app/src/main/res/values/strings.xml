@@ -8,5 +8,5 @@
     <string name="delete_dialog_text">Удалить задание?</string>
     <string name="ok">ОК</string>
     <string name="nope">Отменить</string>
-
+    <string name="notify_new_task_title">Не забудьте про ежедневное задание!</string>
 </resources>

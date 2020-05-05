@@ -5,10 +5,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.android.try2.DB.DailyDB.DailyData;
 import com.example.android.try2.ui.daily.AddDailyActivity;
-import com.example.android.try2.ui.daily.DailyFragment;
 import com.example.android.try2.ui.daily.DailyViewModel;
-import com.example.android.try2.ui.daily.EditDailyActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -20,7 +19,8 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-import static com.example.android.try2.ui.daily.DailyFragment.EDIT_DAILY_REQUEST;
+import java.util.Calendar;
+import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
     //код запроса
@@ -73,7 +73,17 @@ public class MainActivity extends AppCompatActivity {
 
             DailyData dailyData = new DailyData(title, details, time, state);
             dailyViewModel.insert(dailyData);
+
+            int id = dailyData.getId();
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTimeInMillis(System.currentTimeMillis());
+            calendar.set(Calendar.HOUR_OF_DAY, 20);
+            calendar.set(Calendar.MINUTE, 52);
+
+            ReminderManager.setReminder( this, id, title, calendar);
+
             Toast.makeText(this, "Задание добавлено", Toast.LENGTH_LONG).show();
+
         }
         //если закрыто с помощью кнопки назад
         else {

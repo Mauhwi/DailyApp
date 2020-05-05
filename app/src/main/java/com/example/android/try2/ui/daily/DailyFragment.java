@@ -3,15 +3,10 @@ package com.example.android.try2.ui.daily;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Looper;
-import android.telecom.TelecomManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
-import android.widget.CheckBox;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,10 +18,7 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.android.try2.DailyAdapter;
-import com.example.android.try2.DailyDB;
-import com.example.android.try2.DailyData;
-import com.example.android.try2.MainActivity;
+import com.example.android.try2.DB.DailyDB.DailyData;
 import com.example.android.try2.R;
 
 import java.util.List;
@@ -50,7 +42,7 @@ public class DailyFragment extends Fragment {
         final DailyAdapter adapter = new DailyAdapter();
         recyclerView.setAdapter(adapter);
         //неактивные
-        RecyclerView recyclerView2 = rootView.findViewById(R.id.recycler_view_dailyDone);
+        final RecyclerView recyclerView2 = rootView.findViewById(R.id.recycler_view_dailyDone);
         recyclerView2.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView2.setHasFixedSize(true);
 
@@ -110,6 +102,18 @@ public class DailyFragment extends Fragment {
 
         });
 
+        TextView show = rootView.findViewById(R.id.showCompletedTextView);
+        show.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (recyclerView2.getVisibility()==View.INVISIBLE) {
+                    recyclerView2.setVisibility(View.VISIBLE);
+                } else {
+                    recyclerView2.setVisibility(View.INVISIBLE);
+                }
+            }
+        });
+
 
         //TODO: must be a better way :(
         rootView.getViewTreeObserver()
@@ -119,8 +123,10 @@ public class DailyFragment extends Fragment {
                         int activeTasks = adapter.getItemCount();
                         int completedTasks = adapter2.getItemCount();
                         ProgressBar progressBar = rootView.findViewById(R.id.progressBar);
+                        TextView textView = rootView.findViewById(R.id.progressText);
                         progressBar.setMax(activeTasks + completedTasks);
                         progressBar.setProgress(completedTasks);
+                        textView.setText(completedTasks + "/" + (activeTasks + completedTasks));
                     }
                 });
 

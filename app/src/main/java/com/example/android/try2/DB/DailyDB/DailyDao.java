@@ -1,4 +1,4 @@
-package com.example.android.try2;
+package com.example.android.try2.DB.DailyDB;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;

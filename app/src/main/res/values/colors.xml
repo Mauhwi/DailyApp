@@ -7,4 +7,5 @@
     <color name="colorText">#B2DFDB</color>
     <color name="colorTabSecondary">#73b8b2</color>
     <color name="colorTextSecondary">#000000</color>
+    <color name="colorBackgroundSecondary">#E2E2E2</color>
 </resources>

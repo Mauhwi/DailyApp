@@ -1,4 +1,4 @@
-package com.example.android.try2;
+package com.example.android.try2.DB.DailyDB;
 
 import android.app.Application;
 import android.os.AsyncTask;
@@ -56,7 +56,7 @@ public class DailyRepository {
 
         @Override
         protected Void doInBackground(DailyData... dailyData) {
-            dailyDao.update(dailyData[0]);
+            dailyDao.findDailyById(0);
             return null;
         }
     }

@@ -1,24 +1,24 @@
-package com.example.android.try2;
+package com.example.android.try2.DB.MedDB;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 //класс базы данных SQLite
-@Entity(tableName = "daily_table")
-public class DailyData {
+@Entity(tableName = "med_table")
+public class MedData {
     @PrimaryKey(autoGenerate = true)
     private int id;
     private String title;
-    private String description;
+    private String image;
     private String time;
     @ColumnInfo(defaultValue = "1")
     private int state;
 
     //конструктор
-    public DailyData(String title, String description, String time, int state) {
+    public MedData(String title, String image, String time, int state) {
         this.title = title;
-        this.description = description;
+        this.image = image;
         this.time = time;
         this.state = state;
     }
@@ -40,8 +40,8 @@ public class DailyData {
         return title;
     }
 
-    public String getDescription() {
-        return description;
+    public String getImage() {
+        return image;
     }
 
     public String getTime() {
