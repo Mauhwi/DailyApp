@@ -17,4 +17,11 @@
         <item name="colorAccent">@color/colorPrimary</item>
     </style>
 
+    <style name="TimePickerDark" parent="Platform.MaterialComponents.Light">
+        <item name="android:timePickerMode">spinner</item>
+        <item name="android:numbersTextColor">@color/colorAccent</item>
+        <item name="android:numbersSelectorColor">@color/colorSecondary</item>
+        <item name="android:numbersBackgroundColor">@color/colorPrimary</item>
+    </style>
+
 </resources>

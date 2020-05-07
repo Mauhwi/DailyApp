@@ -90,7 +90,6 @@ public class EditDailyActivity extends AppCompatActivity {
         int id = getIntent().getIntExtra(EXTRA_ID, -1);
         Intent data = new Intent();
         data.putExtra(EXTRA_ID, id);
-
         setResult(12, data);
         finish();
     }

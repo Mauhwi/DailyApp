@@ -20,7 +20,7 @@ public class DailyRepository {
         // с помощью специального метода databaseBuilder, поэтому Room генерирует весь код
         //и создает подкласс абстрактного класса
         dailyDao = db.dailyDao();
-        allDailies = dailyDao.getAllDailies();
+        allDailies = dailyDao.getActiveDailies();
         doneDailies = dailyDao.getInactiveDailies();
     }
 

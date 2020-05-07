@@ -10,7 +10,6 @@ import android.content.Intent;
 public class OnAlarmReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
-
         NotificationManager mgr = (NotificationManager) context
                 .getSystemService(Context.NOTIFICATION_SERVICE);
         int taskId = intent.getIntExtra(ReminderManager.EXTRA_ID, -1);

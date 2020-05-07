@@ -9,4 +9,7 @@
     <string name="ok">ОК</string>
     <string name="nope">Отменить</string>
     <string name="notify_new_task_title">Не забудьте про ежедневное задание!</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

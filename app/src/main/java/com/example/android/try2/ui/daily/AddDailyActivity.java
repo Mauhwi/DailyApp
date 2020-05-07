@@ -2,23 +2,20 @@ package com.example.android.try2.ui.daily;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.AlarmManager;
-import android.app.PendingIntent;
-import android.content.BroadcastReceiver;
-import android.content.Context;
+import android.app.TimePickerDialog;
 import android.content.Intent;
-import android.content.IntentFilter;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.example.android.try2.R;
-import com.example.android.try2.ReminderManager;
+
+import java.util.Calendar;
 
 public class AddDailyActivity extends AppCompatActivity {
     //Intent ключи
@@ -28,7 +25,7 @@ public class AddDailyActivity extends AppCompatActivity {
     public static final String EXTRA_STATE = "com.example.android.try2.EXTRA_STATE";
 
     private EditText addTextTitle;
-    private EditText addTextTime;
+    private TextView addTextTime;
     private EditText addTextDetails;
 
     @Override
@@ -40,7 +37,7 @@ public class AddDailyActivity extends AppCompatActivity {
         addTextTime = findViewById(R.id.addDailyTime);
         addTextDetails = findViewById(R.id.addDailyDetails);
 
-        final Button button = findViewById(R.id.add_daily);
+        final ImageButton button = findViewById(R.id.add_daily);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -56,7 +53,32 @@ public class AddDailyActivity extends AppCompatActivity {
             }
         });
 
+        Button timeButton = findViewById(R.id.time_picker_button);
+        timeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Calendar mcurrentTime = Calendar.getInstance();
+                int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
+                int minute = mcurrentTime.get(Calendar.MINUTE);
+                TimePickerDialog mTimePicker;
+                mTimePicker = new TimePickerDialog(AddDailyActivity.this, R.style.TimePickerDark, new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
+                        if (selectedMinute < 10) {
+                            addTextTime.setText(selectedHour + ":0" + selectedMinute);
+                        } else {
+                            addTextTime.setText(selectedHour + ":" + selectedMinute);
+                        }
+                    }
+                }, hour, minute, true);//Yes 24 hour time
+                mTimePicker.show();
+
+            }
+        });
+
+
     }
+
 
     private void saveDaily() {
         String title = addTextTitle.getText().toString();

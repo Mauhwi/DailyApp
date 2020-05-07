@@ -20,7 +20,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.android.try2.DB.DailyDB.DailyData;
 import com.example.android.try2.R;
+import com.example.android.try2.ReminderManager;
 
+import java.util.Calendar;
 import java.util.List;
 
 import static android.app.Activity.RESULT_OK;
@@ -163,6 +165,12 @@ public class DailyFragment extends Fragment {
                 @Override
                 public void run() {
                     DailyData dailyData = dailyViewModel.findDailyById(id);
+                    String title = dailyData.getTitle();
+                    Calendar calendar = Calendar.getInstance();
+                    calendar.setTimeInMillis(System.currentTimeMillis());
+                    calendar.set(Calendar.HOUR_OF_DAY, 20);
+                    calendar.set(Calendar.MINUTE, 52);
+                    ReminderManager.setReminder(getActivity(), id, title, calendar, 2);
                     dailyViewModel.delete(dailyData);
                 }
             });

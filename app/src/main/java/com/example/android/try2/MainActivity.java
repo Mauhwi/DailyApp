@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
             calendar.set(Calendar.HOUR_OF_DAY, 20);
             calendar.set(Calendar.MINUTE, 52);
 
-            ReminderManager.setReminder( this, id, title, calendar);
+            ReminderManager.setReminder( this, id, title, calendar, 1);
 
             Toast.makeText(this, "Задание добавлено", Toast.LENGTH_LONG).show();
 

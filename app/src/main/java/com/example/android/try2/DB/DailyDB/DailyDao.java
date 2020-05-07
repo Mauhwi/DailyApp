@@ -24,11 +24,14 @@ public interface DailyDao {
 
     //метод наполнения списка активных заданий
     @Query("SELECT * FROM DAILY_TABLE WHERE state=1")
-    LiveData<List<DailyData>> getAllDailies();
+    LiveData<List<DailyData>> getActiveDailies();
 
     //метод наполнения списка неактивных заданий
     @Query("SELECT * FROM DAILY_TABLE WHERE state=2")
     LiveData<List<DailyData>> getInactiveDailies();
+
+    @Query("SELECT * FROM DAILY_TABLE")
+    LiveData<List<DailyData>> getAllDailies();
 
     @Query("SELECT * FROM DAILY_TABLE WHERE ID = :id ")
     DailyData findDailyById(int id);
