@@ -12,56 +12,79 @@
         android:id="@+id/item_divider"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_marginTop="6dp"
+        android:paddingVertical="6dp"
         android:background="#D3D3D3" />
 
-    <TextView
-        android:id="@+id/daily"
+    <ImageButton
+        android:id="@+id/notification"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/item_divider"
         android:layout_alignParentLeft="true"
-        android:layout_margin="4dp"
-        android:layout_toLeftOf="@+id/dailyCheckBox"
-        android:text="Задание"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large" />
-
-    <CheckBox
-        android:id="@+id/dailyCheckBox"
-        android:button="@drawable/customcheckbox"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:layout_margin="4dp"
-        android:accessibilityHeading="false"
-        android:accessibilityLiveRegion="polite"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginBottom="4dp"
+        android:background="@android:color/transparent"
         android:minWidth="48dp"
         android:minHeight="48dp"
-        android:scaleX="1.1"
-        android:scaleY="1.1"
-        tools:text="&#8203;" />
+        android:src="@drawable/ic_notifications_off_30dp"/>
 
-    <TextView
-        android:paddingLeft="10dp"
-        android:id="@+id/dailyTime"
+    <RelativeLayout
+        android:id="@+id/relative"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/daily"
-        android:layout_margin="4dp"
-        android:layout_toLeftOf="@+id/dailyCheckBox"
-        android:text="Время"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+        android:layout_toRightOf="@+id/notification">
 
-    <TextView
-        android:paddingLeft="10dp"
-        android:id="@+id/dailyExpand"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/dailyTime"
-        android:layout_toLeftOf="@+id/dailyCheckBox"
-        android:layout_marginLeft="4dp"
-        android:text="Детали задания"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+        <TextView
+            android:paddingLeft="10dp"
+            android:id="@+id/daily"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:layout_alignParentLeft="true"
+            android:text="Задание"
+            android:layout_toLeftOf="@+id/dailyCheckBox"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+        <CheckBox
+            android:id="@+id/dailyCheckBox"
+            android:button="@drawable/customcheckbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_margin="4dp"
+            android:accessibilityHeading="false"
+            android:accessibilityLiveRegion="polite"
+            android:minWidth="48dp"
+            android:minHeight="48dp"
+            android:scaleX="1.1"
+            android:scaleY="1.1"
+            tools:text="&#8203;" />
+
+        <TextView
+            android:paddingLeft="10dp"
+            android:id="@+id/dailyTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/daily"
+            android:layout_margin="4dp"
+            android:layout_toLeftOf="@+id/dailyCheckBox"
+            android:text="Время"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+        <TextView
+            android:paddingLeft="10dp"
+            android:id="@+id/dailyExpand"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/dailyTime"
+            android:layout_toLeftOf="@+id/dailyCheckBox"
+            android:layout_marginLeft="4dp"
+            android:text="Детали задания"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+    </RelativeLayout>
 
 </RelativeLayout>

@@ -3,6 +3,7 @@ package com.example.android.try2.ui.daily;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +25,7 @@ import com.example.android.try2.ReminderManager;
 
 import java.util.Calendar;
 import java.util.List;
+import java.util.StringTokenizer;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -82,6 +84,23 @@ public class DailyFragment extends Fragment {
                 dailyData.setState(2);
                 dailyViewModel.update(dailyData);
             }
+            @Override
+            public void notificationOnClick(DailyData dailyData) {
+                int id = dailyData.getId();
+                String time = dailyData.getTime();
+                String title = dailyData.getTitle();
+                StringTokenizer tokens = new StringTokenizer(time, ":");
+                int hour = Integer.valueOf(tokens.nextToken());
+                int minute = Integer.valueOf(tokens.nextToken());
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTimeInMillis(System.currentTimeMillis());
+                calendar.set(Calendar.HOUR_OF_DAY, hour);
+                calendar.set(Calendar.MINUTE, minute);
+
+                ReminderManager.setReminder(getActivity().getApplicationContext(), id, title, calendar, 1);
+
+                Toast.makeText(getActivity(), "Уведомление включено: " + hour + ":" + minute, Toast.LENGTH_LONG).show();
+            }
         });
 
         adapter2.setOnItemClickListener(new DailyAdapter.onItemClickListener() {
@@ -99,6 +118,9 @@ public class DailyFragment extends Fragment {
             public void checkboxViewOnClick(DailyData dailyData){
                 dailyData.setState(1);
                 dailyViewModel.update(dailyData);
+            }
+            @Override
+            public void notificationOnClick(DailyData dailyData) {
             }
 
 
@@ -165,12 +187,6 @@ public class DailyFragment extends Fragment {
                 @Override
                 public void run() {
                     DailyData dailyData = dailyViewModel.findDailyById(id);
-                    String title = dailyData.getTitle();
-                    Calendar calendar = Calendar.getInstance();
-                    calendar.setTimeInMillis(System.currentTimeMillis());
-                    calendar.set(Calendar.HOUR_OF_DAY, 20);
-                    calendar.set(Calendar.MINUTE, 52);
-                    ReminderManager.setReminder(getActivity(), id, title, calendar, 2);
                     dailyViewModel.delete(dailyData);
                 }
             });
@@ -182,9 +198,19 @@ public class DailyFragment extends Fragment {
                 @Override
                 public void run() {
                     DailyData dailyData = dailyViewModel.findDailyById(id);
+                    String title = dailyData.getTitle();
+                    String time = dailyData.getTime();
+                    StringTokenizer tokens = new StringTokenizer(time, ":");
+                    int hour = Integer.valueOf(tokens.nextToken());
+                    int minute = Integer.valueOf(tokens.nextToken());
+                    Calendar calendar = Calendar.getInstance();
+                    calendar.setTimeInMillis(System.currentTimeMillis());
+                    calendar.set(Calendar.HOUR_OF_DAY, hour);
+                    calendar.set(Calendar.MINUTE, minute);
                     if (dailyData.getState() == 1 ) {
                         dailyData.setState(2);
                         dailyViewModel.update(dailyData);
+                        ReminderManager.setReminder(getActivity().getApplicationContext(), id, title, calendar, 2);
                     } else {
                         dailyData.setState(1);
                         dailyViewModel.update(dailyData);
@@ -195,7 +221,7 @@ public class DailyFragment extends Fragment {
 
         //если закрыто с помощью кнопки назад
         else {
-            Toast.makeText(getActivity(), "Задание отменено", Toast.LENGTH_LONG).show();
+            Toast.makeText(getActivity(), "Задание отменено: ", Toast.LENGTH_LONG).show();
         }
 
     }

@@ -4,6 +4,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -39,6 +41,7 @@ public class DailyAdapter extends RecyclerView.Adapter<DailyAdapter.DailyHolder>
             holder.checkBox.setChecked(false);
         } else {
             holder.checkBox.setChecked(true);
+            holder.notification.setImageResource(R.drawable.ic_notifications_off_30dp);
         }
 
     }
@@ -59,6 +62,7 @@ public class DailyAdapter extends RecyclerView.Adapter<DailyAdapter.DailyHolder>
         private TextView textViewTime;
         private TextView textViewDescription;
         private CheckBox checkBox;
+        private ImageButton notification;
 
 
         public DailyHolder(@NonNull View itemView) {
@@ -67,6 +71,7 @@ public class DailyAdapter extends RecyclerView.Adapter<DailyAdapter.DailyHolder>
             textViewTime = itemView.findViewById(R.id.dailyTime);
             textViewDescription = itemView.findViewById(R.id.dailyExpand);
             checkBox = itemView.findViewById(R.id.dailyCheckBox);
+            notification = itemView.findViewById(R.id.notification);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -85,6 +90,13 @@ public class DailyAdapter extends RecyclerView.Adapter<DailyAdapter.DailyHolder>
                     listener.checkboxViewOnClick(dailies.get(position));
                 }
             });
+            notification.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    int position = getAdapterPosition();
+                    listener.notificationOnClick(dailies.get(position));
+                }
+            });
 
         }
     }
@@ -92,6 +104,7 @@ public class DailyAdapter extends RecyclerView.Adapter<DailyAdapter.DailyHolder>
     public interface onItemClickListener {
         void onItemClick(DailyData dailyData);
         void checkboxViewOnClick(DailyData dailyData);
+        void notificationOnClick(DailyData dailyData);
     }
 
 

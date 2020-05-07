@@ -79,7 +79,6 @@ public class AddDailyActivity extends AppCompatActivity {
 
     }
 
-
     private void saveDaily() {
         String title = addTextTitle.getText().toString();
         String time = addTextTime.getText().toString();
@@ -98,7 +97,6 @@ public class AddDailyActivity extends AppCompatActivity {
         data.putExtra(EXTRA_STATE, state);
         setResult(RESULT_OK, data);
 
-        // Create a reminder for this task
         finish();
     }
 

@@ -2,6 +2,7 @@ package com.example.android.try2;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -21,6 +22,9 @@ import androidx.navigation.ui.NavigationUI;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.StringTokenizer;
+
+import static androidx.constraintlayout.widget.Constraints.TAG;
 
 public class MainActivity extends AppCompatActivity {
     //код запроса
@@ -74,15 +78,19 @@ public class MainActivity extends AppCompatActivity {
             DailyData dailyData = new DailyData(title, details, time, state);
             dailyViewModel.insert(dailyData);
 
+            StringTokenizer tokens = new StringTokenizer(time, ":");
+            int hour = Integer.valueOf(tokens.nextToken());
+            int minute = Integer.valueOf(tokens.nextToken());
             int id = dailyData.getId();
+            Log.i(TAG, "Pending intent id: " + id);
             Calendar calendar = Calendar.getInstance();
             calendar.setTimeInMillis(System.currentTimeMillis());
-            calendar.set(Calendar.HOUR_OF_DAY, 20);
-            calendar.set(Calendar.MINUTE, 52);
+            calendar.set(Calendar.HOUR_OF_DAY, hour);
+            calendar.set(Calendar.MINUTE, minute);
 
-            ReminderManager.setReminder( this, id, title, calendar, 1);
+            ReminderManager.setReminder(getApplicationContext(), id, title, calendar, 1);
 
-            Toast.makeText(this, "Задание добавлено", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Задание добавлено: " + hour + ":" + minute, Toast.LENGTH_LONG).show();
 
         }
         //если закрыто с помощью кнопки назад
