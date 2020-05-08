@@ -53,8 +53,7 @@ public class AddDailyActivity extends AppCompatActivity {
             }
         });
 
-        Button timeButton = findViewById(R.id.time_picker_button);
-        timeButton.setOnClickListener(new View.OnClickListener() {
+        addTextTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Calendar mcurrentTime = Calendar.getInstance();
@@ -70,7 +69,7 @@ public class AddDailyActivity extends AppCompatActivity {
                             addTextTime.setText(selectedHour + ":" + selectedMinute);
                         }
                     }
-                }, hour, minute, true);//Yes 24 hour time
+                }, hour, minute, true);
                 mTimePicker.show();
 
             }

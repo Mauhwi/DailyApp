@@ -15,7 +15,7 @@
         android:paddingVertical="6dp"
         android:background="#D3D3D3" />
 
-    <ImageButton
+    <CheckBox
         android:id="@+id/notification"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -23,12 +23,12 @@
         android:layout_centerVertical="true"
         android:layout_marginStart="4dp"
         android:layout_marginTop="4dp"
-        android:layout_marginEnd="4dp"
+
         android:layout_marginBottom="4dp"
         android:background="@android:color/transparent"
         android:minWidth="48dp"
         android:minHeight="48dp"
-        android:src="@drawable/ic_notifications_off_30dp"/>
+        android:button="@drawable/notification"/>
 
     <RelativeLayout
         android:id="@+id/relative"

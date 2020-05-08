@@ -4,8 +4,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
-import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -36,12 +34,14 @@ public class DailyAdapter extends RecyclerView.Adapter<DailyAdapter.DailyHolder>
         holder.textViewDaily.setText(currentDaily.getTitle());
         holder.textViewTime.setText(currentDaily.getTime());
         holder.textViewDescription.setText(currentDaily.getDescription());
+        //TODO: вроде не надо оно уже, я ничего не помню
         holder.checkBox.setTag(dailies.get(position));
+
         if (currentDaily.getState() == 1) {
             holder.checkBox.setChecked(false);
         } else {
             holder.checkBox.setChecked(true);
-            holder.notification.setImageResource(R.drawable.ic_notifications_off_30dp);
+            holder.notification.setChecked(false);
         }
 
     }
@@ -62,7 +62,7 @@ public class DailyAdapter extends RecyclerView.Adapter<DailyAdapter.DailyHolder>
         private TextView textViewTime;
         private TextView textViewDescription;
         private CheckBox checkBox;
-        private ImageButton notification;
+        private CheckBox notification;
 
 
         public DailyHolder(@NonNull View itemView) {
@@ -94,7 +94,8 @@ public class DailyAdapter extends RecyclerView.Adapter<DailyAdapter.DailyHolder>
                 @Override
                 public void onClick(View view) {
                     int position = getAdapterPosition();
-                    listener.notificationOnClick(dailies.get(position));
+                    boolean state = notification.isChecked();
+                    listener.notificationOnClick(dailies.get(position), state);
                 }
             });
 
@@ -104,7 +105,7 @@ public class DailyAdapter extends RecyclerView.Adapter<DailyAdapter.DailyHolder>
     public interface onItemClickListener {
         void onItemClick(DailyData dailyData);
         void checkboxViewOnClick(DailyData dailyData);
-        void notificationOnClick(DailyData dailyData);
+        void notificationOnClick(DailyData dailyData, boolean state);
     }
 
 

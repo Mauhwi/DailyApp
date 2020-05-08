@@ -77,21 +77,6 @@ public class MainActivity extends AppCompatActivity {
 
             DailyData dailyData = new DailyData(title, details, time, state);
             dailyViewModel.insert(dailyData);
-
-            StringTokenizer tokens = new StringTokenizer(time, ":");
-            int hour = Integer.valueOf(tokens.nextToken());
-            int minute = Integer.valueOf(tokens.nextToken());
-            int id = dailyData.getId();
-            Log.i(TAG, "Pending intent id: " + id);
-            Calendar calendar = Calendar.getInstance();
-            calendar.setTimeInMillis(System.currentTimeMillis());
-            calendar.set(Calendar.HOUR_OF_DAY, hour);
-            calendar.set(Calendar.MINUTE, minute);
-
-            ReminderManager.setReminder(getApplicationContext(), id, title, calendar, 1);
-
-            Toast.makeText(this, "Задание добавлено: " + hour + ":" + minute, Toast.LENGTH_LONG).show();
-
         }
         //если закрыто с помощью кнопки назад
         else {

@@ -44,7 +44,7 @@ public abstract class MedDB extends RoomDatabase {
 
         @Override
         protected Void doInBackground(Void... voids) {
-            medDAO.insert(new MedData("Танакан", "Изображение", "12:20", 1));
+            medDAO.insert(new MedData("Танакан", "R.drawable.pill", "12:20", 1));
             return null;
         }
     }

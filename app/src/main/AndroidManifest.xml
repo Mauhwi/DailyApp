@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.android.try2">
 
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.daily.EditDailyActivity"></activity>
+        <activity android:name=".ui.med.AddMedActivity"></activity>
+        <activity android:name=".ui.daily.EditDailyActivity" />
         <activity
             android:name=".ui.daily.AddDailyActivity"
             android:parentActivityName=".MainActivity" />
@@ -22,9 +25,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <receiver android:name=".OnAlarmReceiver"
-            android:exported="false"/>
+
+        <receiver
+            android:name=".OnAlarmReceiver"
+            android:exported="false" />
     </application>
-    <uses-permission
-        android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+
 </manifest>

@@ -80,26 +80,44 @@ public class DailyFragment extends Fragment {
             }
 
             @Override
-            public void checkboxViewOnClick(DailyData dailyData){
+            public void checkboxViewOnClick(DailyData dailyData) {
                 dailyData.setState(2);
                 dailyViewModel.update(dailyData);
             }
+
             @Override
-            public void notificationOnClick(DailyData dailyData) {
-                int id = dailyData.getId();
-                String time = dailyData.getTime();
-                String title = dailyData.getTitle();
-                StringTokenizer tokens = new StringTokenizer(time, ":");
-                int hour = Integer.valueOf(tokens.nextToken());
-                int minute = Integer.valueOf(tokens.nextToken());
-                Calendar calendar = Calendar.getInstance();
-                calendar.setTimeInMillis(System.currentTimeMillis());
-                calendar.set(Calendar.HOUR_OF_DAY, hour);
-                calendar.set(Calendar.MINUTE, minute);
+            public void notificationOnClick(DailyData dailyData, boolean state) {
+                if (state == true) {
+                    int id = dailyData.getId();
+                    String time = dailyData.getTime();
+                    String title = dailyData.getTitle();
+                    StringTokenizer tokens = new StringTokenizer(time, ":");
+                    int hour = Integer.valueOf(tokens.nextToken());
+                    int minute = Integer.valueOf(tokens.nextToken());
+                    Calendar calendar = Calendar.getInstance();
+                    calendar.setTimeInMillis(System.currentTimeMillis());
+                    calendar.set(Calendar.HOUR_OF_DAY, hour);
+                    calendar.set(Calendar.MINUTE, minute);
 
-                ReminderManager.setReminder(getActivity().getApplicationContext(), id, title, calendar, 1);
+                    ReminderManager.setReminder(getActivity().getApplicationContext(), id, title, calendar, 1);
 
-                Toast.makeText(getActivity(), "Уведомление включено: " + hour + ":" + minute, Toast.LENGTH_LONG).show();
+                    Toast.makeText(getActivity(), "Уведомление включено: ", Toast.LENGTH_LONG).show();
+                } else {
+                    int id = dailyData.getId();
+                    String time = dailyData.getTime();
+                    String title = dailyData.getTitle();
+                    StringTokenizer tokens = new StringTokenizer(time, ":");
+                    int hour = Integer.valueOf(tokens.nextToken());
+                    int minute = Integer.valueOf(tokens.nextToken());
+                    Calendar calendar = Calendar.getInstance();
+                    calendar.setTimeInMillis(System.currentTimeMillis());
+                    calendar.set(Calendar.HOUR_OF_DAY, hour);
+                    calendar.set(Calendar.MINUTE, minute);
+
+                    ReminderManager.setReminder(getActivity().getApplicationContext(), id, title, calendar, 2);
+
+                    Toast.makeText(getActivity(), "Уведомление отключено: " + hour + ":" + minute, Toast.LENGTH_LONG).show();
+                }
             }
         });
 
@@ -114,13 +132,15 @@ public class DailyFragment extends Fragment {
                 intent.putExtra(EditDailyActivity.EXTRA_STATE, dailyData.getState());
                 startActivityForResult(intent, EDIT_DAILY_REQUEST);
             }
+
             @Override
-            public void checkboxViewOnClick(DailyData dailyData){
+            public void checkboxViewOnClick(DailyData dailyData) {
                 dailyData.setState(1);
                 dailyViewModel.update(dailyData);
             }
+
             @Override
-            public void notificationOnClick(DailyData dailyData) {
+            public void notificationOnClick(DailyData dailyData, boolean state) {
             }
 
 
@@ -130,7 +150,7 @@ public class DailyFragment extends Fragment {
         show.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (recyclerView2.getVisibility()==View.INVISIBLE) {
+                if (recyclerView2.getVisibility() == View.INVISIBLE) {
                     recyclerView2.setVisibility(View.VISIBLE);
                 } else {
                     recyclerView2.setVisibility(View.INVISIBLE);
@@ -179,9 +199,7 @@ public class DailyFragment extends Fragment {
             dailyViewModel.update(dailyData);
 
             Toast.makeText(getActivity(), "Задание обновлено", Toast.LENGTH_LONG).show();
-        }
-
-        else if (requestCode == EDIT_DAILY_REQUEST && resultCode == 12) {
+        } else if (requestCode == EDIT_DAILY_REQUEST && resultCode == 12) {
             final int id = data.getIntExtra(EditDailyActivity.EXTRA_ID, -1);
             AsyncTask.execute(new Runnable() {
                 @Override
@@ -190,9 +208,7 @@ public class DailyFragment extends Fragment {
                     dailyViewModel.delete(dailyData);
                 }
             });
-        }
-
-        else if (requestCode == EDIT_DAILY_REQUEST && resultCode == 345) {
+        } else if (requestCode == EDIT_DAILY_REQUEST && resultCode == 345) {
             final int id = data.getIntExtra(EditDailyActivity.EXTRA_ID, -1);
             AsyncTask.execute(new Runnable() {
                 @Override
@@ -207,7 +223,7 @@ public class DailyFragment extends Fragment {
                     calendar.setTimeInMillis(System.currentTimeMillis());
                     calendar.set(Calendar.HOUR_OF_DAY, hour);
                     calendar.set(Calendar.MINUTE, minute);
-                    if (dailyData.getState() == 1 ) {
+                    if (dailyData.getState() == 1) {
                         dailyData.setState(2);
                         dailyViewModel.update(dailyData);
                         ReminderManager.setReminder(getActivity().getApplicationContext(), id, title, calendar, 2);
