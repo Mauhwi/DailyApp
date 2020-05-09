@@ -259,6 +259,6 @@ public class DailyFragment extends Fragment {
         else {
             Toast.makeText(getActivity(), "Задание отменено: ", Toast.LENGTH_LONG).show();
         }
-
+        //todo kot blet
     }
 }
