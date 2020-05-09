@@ -87,13 +87,15 @@
         <HorizontalScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/type">
+            android:layout_below="@id/type"
+            android:layout_marginHorizontal="8dp"
+            android:layout_gravity="center_horizontal">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal"
-                android:layout_gravity="center_horizontal">
+                android:layout_gravity="right">
 
                 <ImageView
                     android:id="@+id/image1"

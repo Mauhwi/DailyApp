@@ -20,8 +20,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.android.try2.DB.DailyDB.DailyData;
+import com.example.android.try2.MainActivity;
 import com.example.android.try2.R;
 import com.example.android.try2.ReminderManager;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.Calendar;
 import java.util.List;
@@ -32,6 +34,7 @@ import static android.app.Activity.RESULT_OK;
 public class DailyFragment extends Fragment {
     private DailyViewModel dailyViewModel;
     public static final int EDIT_DAILY_REQUEST = 2;
+    public static final int ADD_DAILY_REQUEST = 1;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -174,6 +177,15 @@ public class DailyFragment extends Fragment {
                     }
                 });
 
+        FloatingActionButton fab = (FloatingActionButton)this.getActivity().findViewById(R.id.floating_button);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), AddDailyActivity.class);
+                startActivityForResult(intent, ADD_DAILY_REQUEST);
+            }
+        });
+
 
         return rootView;
     }
@@ -233,6 +245,14 @@ public class DailyFragment extends Fragment {
                     }
                 }
             });
+        } else if (requestCode == ADD_DAILY_REQUEST && resultCode == RESULT_OK) {
+            String title = data.getStringExtra(AddDailyActivity.EXTRA_TEXT);
+            String time = data.getStringExtra(AddDailyActivity.EXTRA_TIME);
+            String details = data.getStringExtra(AddDailyActivity.EXTRA_DETAILS);
+            int state = data.getIntExtra(AddDailyActivity.EXTRA_STATE, 1);
+
+            DailyData dailyData = new DailyData(title, details, time, state);
+            dailyViewModel.insert(dailyData);
         }
 
         //если закрыто с помощью кнопки назад

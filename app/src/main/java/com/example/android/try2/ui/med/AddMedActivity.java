@@ -14,7 +14,6 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.example.android.try2.R;
-import com.example.android.try2.ui.daily.AddDailyActivity;
 
 import java.util.Calendar;
 
@@ -42,8 +41,8 @@ public class AddMedActivity extends AppCompatActivity {
         image1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                image1.setBackgroundResource(R.drawable.border);
-                imageResId = "R.drawable.pill";
+                setBackground(image1);
+                imageResId = "pill";
             }
         });
 
@@ -51,8 +50,8 @@ public class AddMedActivity extends AppCompatActivity {
         image2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                image2.setBackgroundResource(R.drawable.border);
-                imageResId = "R.drawable.image2";
+                imageResId = "pill2";
+                setBackground(image2);
             }
         });
 
@@ -60,8 +59,8 @@ public class AddMedActivity extends AppCompatActivity {
         image3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                image3.setBackgroundResource(R.drawable.border);
-                imageResId = "R.drawable.image3";
+                setBackground(image3);
+                imageResId = "syringe";
             }
         });
 
@@ -69,8 +68,8 @@ public class AddMedActivity extends AppCompatActivity {
         image4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                image4.setBackgroundResource(R.drawable.border);
-                imageResId = "R.drawable.image4";
+                setBackground(image4);
+                imageResId = "medicine1";
             }
         });
 
@@ -78,8 +77,8 @@ public class AddMedActivity extends AppCompatActivity {
         image5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                image5.setBackgroundResource(R.drawable.border);
-                imageResId = "R.drawable.image5";
+                setBackground(image5);
+                imageResId = "medicine2";
             }
         });
 
@@ -145,6 +144,40 @@ public class AddMedActivity extends AppCompatActivity {
 
         finish();
 
+    }
+
+    private void setBackground(View view) {
+        view.setBackgroundResource(R.drawable.border);
+        if (view == image1) {
+            image2.setBackground(null);
+            image3.setBackground(null);
+            image4.setBackground(null);
+            image5.setBackground(null);
+        }
+        if (view == image2) {
+            image1.setBackground(null);
+            image3.setBackground(null);
+            image4.setBackground(null);
+            image5.setBackground(null);
+        }
+        if (view == image3) {
+            image1.setBackground(null);
+            image2.setBackground(null);
+            image4.setBackground(null);
+            image5.setBackground(null);
+        }
+        if (view == image4) {
+            image1.setBackground(null);
+            image2.setBackground(null);
+            image3.setBackground(null);
+            image5.setBackground(null);
+        }
+        if (view == image5) {
+            image1.setBackground(null);
+            image2.setBackground(null);
+            image3.setBackground(null);
+            image4.setBackground(null);
+        }
     }
 
 }

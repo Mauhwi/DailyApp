@@ -27,10 +27,6 @@ import java.util.StringTokenizer;
 import static androidx.constraintlayout.widget.Constraints.TAG;
 
 public class MainActivity extends AppCompatActivity {
-    //код запроса
-    private DailyViewModel dailyViewModel;
-    public static final int ADD_DAILY_REQUEST = 1;
-    //------
 
     public void onClickExpand(View b) {
 
@@ -42,15 +38,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         //------------
-        dailyViewModel = ViewModelProviders.of(this).get(DailyViewModel.class);
-        FloatingActionButton buttonAddDaily = findViewById(R.id.floating_button);
-        buttonAddDaily.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, AddDailyActivity.class);
-                startActivityForResult(intent, ADD_DAILY_REQUEST);
-            }
-        });
 
         BottomNavigationView navView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
@@ -65,22 +52,4 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == ADD_DAILY_REQUEST && resultCode == RESULT_OK) {
-            String title = data.getStringExtra(AddDailyActivity.EXTRA_TEXT);
-            String time = data.getStringExtra(AddDailyActivity.EXTRA_TIME);
-            String details = data.getStringExtra(AddDailyActivity.EXTRA_DETAILS);
-            int state = data.getIntExtra(AddDailyActivity.EXTRA_STATE, 1);
-
-            DailyData dailyData = new DailyData(title, details, time, state);
-            dailyViewModel.insert(dailyData);
-        }
-        //если закрыто с помощью кнопки назад
-        else {
-            Toast.makeText(this, "Задание отменено", Toast.LENGTH_LONG).show();
-        }
-    }
 }

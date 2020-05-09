@@ -37,9 +37,8 @@ public class MedAdapter extends RecyclerView.Adapter<MedAdapter.MedHolder>{
         holder.textViewMedName.setText(currentMed.getTitle());
         holder.textViewMedTime.setText(currentMed.getTime());
         //Поиск Id изображения из String
-        String imadsh = "pill2";
         int picId = holder.itemView.getContext().getResources()
-                .getIdentifier(imadsh, "drawable", holder.itemView.getContext()
+                .getIdentifier(currentMed.getImage(), "drawable", holder.itemView.getContext()
                         .getApplicationContext().getPackageName());
         holder.imageMed.setImageResource(picId);
         Log.i(TAG, "Айди: " + picId);
