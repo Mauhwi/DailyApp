@@ -6,7 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
-import com.example.android.try2.ui.med.MedFragment;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import java.util.Calendar;
 
@@ -59,5 +59,22 @@ public class ReminderManager {
                     when.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pi);
         }
 
+
+
+    }
+
+    public static void midnight(Context context) {
+        AlarmManager alarmManager = (AlarmManager) context
+                .getSystemService(Context.ALARM_SERVICE);
+        Intent i = new Intent(context, DailyResetReceiver.class);
+        PendingIntent pi = PendingIntent.getBroadcast(context, 0, i,
+                PendingIntent.FLAG_UPDATE_CURRENT);
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(System.currentTimeMillis());
+        calendar.set(Calendar.HOUR_OF_DAY, 4);
+        calendar.set(Calendar.MINUTE, 6);
+        alarmManager.setExact(AlarmManager.RTC_WAKEUP,
+                calendar.getTimeInMillis(), pi);
+        Log.i(TAG, "миднайт " + "context: " + context + " id: "  + " i: " + i);
     }
 }

@@ -42,6 +42,7 @@ public class MedViewModel extends AndroidViewModel {
     }
 
     public void changeState() {
+
         medRepository.changeState();
     }
 }

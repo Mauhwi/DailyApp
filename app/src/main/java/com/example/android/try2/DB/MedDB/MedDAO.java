@@ -32,5 +32,5 @@ public interface MedDAO {
     MedData findMedById(int id);
 
     @Query("UPDATE med_table SET state = 1")
-    void chagestate();
+    void changestate();
 }

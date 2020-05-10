@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,7 +29,6 @@ import java.util.Calendar;
 import java.util.List;
 
 import static android.app.Activity.RESULT_OK;
-import static androidx.constraintlayout.widget.Constraints.TAG;
 
 public class MedFragment extends Fragment {
     private MedViewModel medViewModel;
@@ -100,8 +98,6 @@ public class MedFragment extends Fragment {
             }
         });
 
-        setup();
-
         return rootView;
     }
 
@@ -148,39 +144,5 @@ public class MedFragment extends Fragment {
         }
     }
 
-    @Override
-    public void onAttach(Context context)
-    {
-        super.onAttach(context);
-        _context = context;
-    }
-
-    @Override
-    public void onDestroyView()
-    {
-        super.onDestroyView();
-        _context.unregisterReceiver(br);
-    }
-
-
-    private void setup()
-    {
-        br = new BroadcastReceiver() {
-            @Override
-            public void onReceive(Context context, Intent i)
-            {
-                medViewModel.changeState();
-            }
-        };
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(System.currentTimeMillis());
-        calendar.set(Calendar.HOUR_OF_DAY, 0);
-        calendar.set(Calendar.MINUTE, 0);
-        _context.registerReceiver(br, new IntentFilter("com.example.android.try2.setup"));
-        pi = PendingIntent.getBroadcast(_context, 0, new Intent("com.example.android.try2.setup"), 0);
-        am = (AlarmManager)(_context.getSystemService(Context.ALARM_SERVICE));
-        am.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
-                AlarmManager.INTERVAL_DAY, pi);
-    }
 }
 

@@ -21,9 +21,6 @@ public class MedRepository {
         doneMeds = medDao.getInactiveMeds();
     }
 
-
-
-
     //для ViewModel
     public void insert(MedData medData) {
         new InsertMedAsyncTask(medDao).execute(medData);
@@ -106,7 +103,7 @@ public class MedRepository {
 
         @Override
         protected  Void doInBackground(MedData... medData) {
-            medDao.chagestate();
+            medDao.changestate();
             return null;
         }
     }

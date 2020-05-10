@@ -30,6 +30,9 @@
         <receiver
             android:name=".OnAlarmReceiver"
             android:exported="false" />
+        <receiver
+            android:name=".DailyResetReceiver"
+            android:exported="false" />
     </application>
 
 </manifest>
