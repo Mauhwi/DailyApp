@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.med.EditMedActivity"
+    android:padding="8dp"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="7">
+
+        <ImageButton
+            android:id="@+id/editMedBackButton"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:minWidth="48dp"
+            android:minHeight="48dp"
+            android:src="@drawable/ic_arrow_back_green_24dp" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="0dp"
+            android:layout_weight="5"
+            android:layout_height="wrap_content"
+            android:text="Редактирование:"
+            android:textSize="20sp"
+            android:padding="10dp"
+            android:textColor="@color/colorPrimary"/>
+
+        <ImageButton
+            android:id="@+id/deleteMedButton"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:minWidth="48dp"
+            android:minHeight="48dp"
+            android:src="@drawable/ic_delete_30dp" />
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <EditText
+            android:layout_below="@id/editMedTime"
+            android:id="@+id/editMedText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="48dp"
+            android:hint="Название"
+            android:inputType="text"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:backgroundTint="@color/colorPrimary"
+            android:textColorHint="@color/colorTextSecondary"
+            android:layout_marginTop="8dp"/>
+
+        <TextView
+            android:id="@+id/editMedTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="00:00"
+            android:minHeight="48dp"
+            android:gravity="center_horizontal|center_vertical"
+            android:layout_marginTop="8dp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"/>
+
+        <TextView
+            android:paddingTop="8dp"
+            android:layout_marginLeft="2dp"
+            android:text="Вид:"
+            android:id="@+id/editType"
+            android:layout_below="@id/editMedText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="48dp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"/>
+
+        <HorizontalScrollView
+            android:id="@+id/edit_med_image"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/editType"
+            android:layout_marginHorizontal="8dp"
+            android:layout_gravity="center_horizontal"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_gravity="right">
+
+                <ImageView
+                    android:id="@+id/image1"
+                    android:layout_margin="8dp"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:src="@drawable/pill"/>
+                <ImageView
+                    android:id="@+id/image2"
+                    android:layout_margin="8dp"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:src="@drawable/pill2"/>
+                <ImageView
+                    android:id="@+id/image3"
+                    android:layout_margin="8dp"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:src="@drawable/syringe"/>
+                <ImageView
+                    android:id="@+id/image4"
+                    android:layout_margin="8dp"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:src="@drawable/medicine1"/>
+                <ImageView
+                    android:id="@+id/image5"
+                    android:layout_margin="8dp"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:src="@drawable/medicine2" />
+            </LinearLayout>
+
+        </HorizontalScrollView>
+
+        <Button
+            android:id="@+id/completeMed"
+            android:layout_marginTop="10dp"
+            android:padding="8dp"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/edit_med_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            android:textColor="@color/colorAccent"
+            android:drawableLeft="@drawable/ic_done_26dp"
+            android:text="Выполнить"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"/>
+
+
+    </RelativeLayout>
+
+</LinearLayout>

@@ -1,6 +1,8 @@
 package com.example.android.try2.ui.med;
 
-import android.content.res.Resources;
+
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -44,8 +46,14 @@ public class MedAdapter extends RecyclerView.Adapter<MedAdapter.MedHolder>{
         Log.i(TAG, "Айди: " + picId);
         if (currentMed.getState() == 1) {
             holder.checkboxMed.setChecked(false);
+            holder.textViewMedName.setTextColor(Color.BLACK);
+            holder.textViewMedTime.setBackgroundColor(Color.parseColor("#00695D"));
+            holder.imageMed.setVisibility(View.VISIBLE);
         } else {
             holder.checkboxMed.setChecked(true);
+            holder.textViewMedName.setTextColor(Color.GRAY);
+            holder.textViewMedTime.setBackgroundColor(Color.GRAY);
+            holder.imageMed.setVisibility(View.INVISIBLE);
         }
 
     }
@@ -88,7 +96,16 @@ public class MedAdapter extends RecyclerView.Adapter<MedAdapter.MedHolder>{
                 @Override
                 public void onClick(View view) {
                     int position = getAdapterPosition();
-                    listener.checkboxViewOnClick(meds.get(position));
+                    listener.checkboxViewOnClick(meds.get(position), checkboxMed.isChecked());
+                    if (checkboxMed.isChecked()) {
+                        textViewMedName.setTextColor(Color.GRAY);
+                        textViewMedTime.setBackgroundColor(Color.GRAY);
+                        imageMed.setVisibility(View.INVISIBLE);
+                    } else {
+                        textViewMedName.setTextColor(Color.BLACK);
+                        textViewMedTime.setBackgroundColor(Color.parseColor("#00695D"));
+                        imageMed.setVisibility(View.VISIBLE);
+                    }
                 }
             });
         }
@@ -96,7 +113,7 @@ public class MedAdapter extends RecyclerView.Adapter<MedAdapter.MedHolder>{
 
     public interface onItemClickListener {
         void onItemClick(MedData medData);
-        void checkboxViewOnClick(MedData medData);
+        void checkboxViewOnClick(MedData medData,boolean state);
     }
 
 

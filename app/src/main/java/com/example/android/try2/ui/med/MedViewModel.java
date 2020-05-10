@@ -5,8 +5,6 @@ import android.app.Application;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
 
 import com.example.android.try2.DB.MedDB.MedData;
 import com.example.android.try2.DB.MedDB.MedRepository;
@@ -36,5 +34,14 @@ public class MedViewModel extends AndroidViewModel {
 
     public LiveData<List<MedData>> getAllMeds() {
         return allMeds;
+    }
+
+    public MedData findMedById(int id) {
+        MedData medById = medRepository.findMedById(id);
+        return medById;
+    }
+
+    public void changeState() {
+        medRepository.changeState();
     }
 }

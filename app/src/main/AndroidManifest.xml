@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.med.AddMedActivity"></activity>
+        <activity android:name=".ui.med.EditMedActivity"></activity>
+        <activity android:name=".ui.med.AddMedActivity" />
         <activity android:name=".ui.daily.EditDailyActivity" />
         <activity
             android:name=".ui.daily.AddDailyActivity"

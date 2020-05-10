@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 
 import androidx.lifecycle.LiveData;
 
+
 import java.util.List;
 
 public class MedRepository {
@@ -20,6 +21,9 @@ public class MedRepository {
         doneMeds = medDao.getInactiveMeds();
     }
 
+
+
+
     //для ViewModel
     public void insert(MedData medData) {
         new InsertMedAsyncTask(medDao).execute(medData);
@@ -33,8 +37,17 @@ public class MedRepository {
         new DeleteMedAsyncTask(medDao).execute(medData);
     }
 
+    public void changeState(){
+        new ChangeStateAsyncTask(medDao).execute();
+    }
+
     public LiveData<List<MedData>> getAllMeds() {
         return allMeds;
+    }
+
+    public MedData findMedById(int id) {
+        medById = medDao.findMedById(id);
+        return medById;
     }
 
     //Асинхронные задания
@@ -79,6 +92,21 @@ public class MedRepository {
         @Override
         protected  Void doInBackground(MedData... medData) {
             medDao.delete(medData[0]);
+            return null;
+        }
+    }
+
+    private static class ChangeStateAsyncTask extends AsyncTask<MedData, Void, Void> {
+        private MedDAO medDao;
+
+
+        private ChangeStateAsyncTask(MedDAO medDao) {
+            this.medDao = medDao;
+        }
+
+        @Override
+        protected  Void doInBackground(MedData... medData) {
+            medDao.chagestate();
             return null;
         }
     }

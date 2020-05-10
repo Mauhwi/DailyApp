@@ -30,4 +30,7 @@ public interface MedDAO {
 
     @Query("SELECT * FROM MED_TABLE WHERE ID = :id ")
     MedData findMedById(int id);
+
+    @Query("UPDATE med_table SET state = 1")
+    void chagestate();
 }
