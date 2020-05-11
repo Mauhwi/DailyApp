@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.android.try2.R;
+import com.example.android.try2.ReminderManager;
 import com.example.android.try2.ui.daily.EditDailyActivity;
 
 public class EditMedActivity extends AppCompatActivity {
@@ -134,8 +135,12 @@ public class EditMedActivity extends AppCompatActivity {
 
     private void deleteMed() {
         int id = getIntent().getIntExtra(MED_ID, -1);
+        String title =  editMedTitle.getText().toString();
+        String time = editMedTime.getText().toString();
         Intent data = new Intent();
         data.putExtra(MED_ID, id);
+        data.putExtra(MED_TEXT, title);
+        data.putExtra(MED_TIME, time);
         setResult(12, data);
         finish();
     }
@@ -160,6 +165,9 @@ public class EditMedActivity extends AppCompatActivity {
         if (id != -1) {
             data.putExtra(MED_ID, id);
         }
+
+
+
         setResult(RESULT_OK, data);
         finish();
     }

@@ -41,8 +41,13 @@ public class MedViewModel extends AndroidViewModel {
         return medById;
     }
 
-    public void changeState() {
+    public int getActiveCount() {
+        int count = medRepository.getActiveCount();
+        return count;
+    }
 
-        medRepository.changeState();
+    public int getInactiveCount() {
+        int count = medRepository.getInactiveCount();
+        return count;
     }
 }

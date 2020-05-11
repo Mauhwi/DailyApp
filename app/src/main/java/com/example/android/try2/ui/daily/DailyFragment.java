@@ -3,13 +3,14 @@ package com.example.android.try2.ui.daily;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -18,7 +19,6 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -37,6 +37,7 @@ public class DailyFragment extends Fragment {
     private DailyViewModel dailyViewModel;
     public static final int EDIT_DAILY_REQUEST = 2;
     public static final int ADD_DAILY_REQUEST = 1;
+    AnimationDrawable catAnimationHappy;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -72,6 +73,12 @@ public class DailyFragment extends Fragment {
             }
         });
 
+        final ImageView catView = rootView.findViewById(R.id.cat_image);
+        catView.setBackgroundResource(R.drawable.animatorhappycat);
+        catAnimationHappy = (AnimationDrawable) catView.getBackground();
+        catAnimationHappy.start();
+
+
         adapter.setOnItemClickListener(new DailyAdapter.onItemClickListener() {
             @Override
             public void onItemClick(DailyData dailyData) {
@@ -88,6 +95,10 @@ public class DailyFragment extends Fragment {
             public void checkboxViewOnClick(DailyData dailyData) {
                 dailyData.setState(2);
                 dailyViewModel.update(dailyData);
+                if( catAnimationHappy.isRunning()){
+                    catAnimationHappy.stop();
+                }
+                catAnimationHappy.start();
             }
 
             @Override
@@ -176,6 +187,8 @@ public class DailyFragment extends Fragment {
                         progressBar.setMax(activeTasks + completedTasks);
                         progressBar.setProgress(completedTasks);
                         textView.setText(completedTasks + "/" + (activeTasks + completedTasks));
+                        TextView textView2 = rootView.findViewById(R.id.showCompletedTextView);
+                        textView2.setText("Выполненные задания: " + "(" + (completedTasks) + ")");
                     }
                 });
 
@@ -198,27 +211,39 @@ public class DailyFragment extends Fragment {
 
         if (requestCode == EDIT_DAILY_REQUEST && resultCode == RESULT_OK) {
             int id = data.getIntExtra(EditDailyActivity.EXTRA_ID, -1);
-            if (id == -1) {
-                Toast.makeText(getActivity(), "Нет задания", Toast.LENGTH_LONG).show();
-                return;
-            }
             String title = data.getStringExtra(EditDailyActivity.EXTRA_TEXT);
             String time = data.getStringExtra(EditDailyActivity.EXTRA_TIME);
             String details = data.getStringExtra(EditDailyActivity.EXTRA_DETAILS);
             int state = data.getIntExtra(EditDailyActivity.EXTRA_STATE, 1);
-
-
             DailyData dailyData = new DailyData(title, details, time, state);
             dailyData.setId(id);
             dailyViewModel.update(dailyData);
 
-            Toast.makeText(getActivity(), "Задание обновлено", Toast.LENGTH_LONG).show();
+            StringTokenizer tokens = new StringTokenizer(time, ":");
+            int hour = Integer.valueOf(tokens.nextToken());
+            int minute = Integer.valueOf(tokens.nextToken());
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTimeInMillis(System.currentTimeMillis());
+            calendar.set(Calendar.HOUR_OF_DAY, hour);
+            calendar.set(Calendar.MINUTE, minute);
+            ReminderManager.setReminder(getActivity().getApplicationContext(), id, title, calendar, 1);
+
         } else if (requestCode == EDIT_DAILY_REQUEST && resultCode == 12) {
             final int id = data.getIntExtra(EditDailyActivity.EXTRA_ID, -1);
             AsyncTask.execute(new Runnable() {
                 @Override
                 public void run() {
                     DailyData dailyData = dailyViewModel.findDailyById(id);
+                    String title = dailyData.getTitle();
+                    String time = dailyData.getTime();
+                    StringTokenizer tokens = new StringTokenizer(time, ":");
+                    int hour = Integer.valueOf(tokens.nextToken());
+                    int minute = Integer.valueOf(tokens.nextToken());
+                    Calendar calendar = Calendar.getInstance();
+                    calendar.setTimeInMillis(System.currentTimeMillis());
+                    calendar.set(Calendar.HOUR_OF_DAY, hour);
+                    calendar.set(Calendar.MINUTE, minute);
+                    ReminderManager.setReminder(getActivity().getApplicationContext(), id, title, calendar, 2);
                     dailyViewModel.delete(dailyData);
                 }
             });
@@ -259,7 +284,7 @@ public class DailyFragment extends Fragment {
 
         //если закрыто с помощью кнопки назад
         else {
-            Toast.makeText(getActivity(), "Задание отменено: ", Toast.LENGTH_LONG).show();
+            Toast.makeText(getActivity(), "Задание отредактировано", Toast.LENGTH_LONG).show();
         }
         //todo kot blet
     }

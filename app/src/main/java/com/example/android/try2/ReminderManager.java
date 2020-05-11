@@ -4,14 +4,7 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
-
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
-
 import java.util.Calendar;
-
-import static androidx.constraintlayout.widget.Constraints.TAG;
-
 
 public class ReminderManager {
     public static final String EXTRA_ID = "com.example.android.try2.EXTRA_ID";
@@ -21,6 +14,7 @@ public class ReminderManager {
     private ReminderManager() {}
     public static void setReminder(Context context, int dailyId,
                                    String title, Calendar when, int alarmCode) {
+        //Создание AlarmManager для регистрации оповещений
         if (alarmCode == 1) {
             AlarmManager alarmManager = (AlarmManager) context
                 .getSystemService(Context.ALARM_SERVICE);
@@ -33,8 +27,8 @@ public class ReminderManager {
                     PendingIntent.FLAG_UPDATE_CURRENT);
             alarmManager.setExact(AlarmManager.RTC_WAKEUP,
                     when.getTimeInMillis(), pi);
-            Log.i(TAG, "Pending intent: " + "context: " + context + " id: " + dailyId + " i: " + i);
-        } else if (alarmCode == 2){
+        //или его удаление
+        } else {
             AlarmManager alarmManager = (AlarmManager) context
                     .getSystemService(Context.ALARM_SERVICE);
             Intent i = new Intent(context, OnAlarmReceiver.class);
@@ -45,36 +39,25 @@ public class ReminderManager {
                     PendingIntent.FLAG_UPDATE_CURRENT);
             pi.cancel();
             alarmManager.cancel(pi);
-            Log.i(TAG, "Pending intent: " + "context: " + context + " id: " + dailyId + " i: " + i);
-        } else {
-            AlarmManager alarmManager = (AlarmManager) context
-                .getSystemService(Context.ALARM_SERVICE);
-            Intent i = new Intent(context, OnAlarmReceiver.class);
-            i.putExtra(EXTRA_TEXT, title);
-            i.putExtra(EXTRA_ID, dailyId);
-            i.putExtra(EXTRA_CODE, alarmCode);
-            PendingIntent pi = PendingIntent.getBroadcast(context, 0, i,
-                    PendingIntent.FLAG_ONE_SHOT);
-            alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,
-                    when.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pi);
         }
-
-
-
     }
 
+    //Метод вызова AlarmManager каждый день приблизительно в полночь
     public static void midnight(Context context) {
+        Calendar timeNow = Calendar.getInstance();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(System.currentTimeMillis());
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        if(calendar.before(timeNow)){
+            calendar.add(Calendar.DATE, 1);
+        }
         AlarmManager alarmManager = (AlarmManager) context
                 .getSystemService(Context.ALARM_SERVICE);
         Intent i = new Intent(context, DailyResetReceiver.class);
         PendingIntent pi = PendingIntent.getBroadcast(context, 0, i,
-                PendingIntent.FLAG_UPDATE_CURRENT);
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(System.currentTimeMillis());
-        calendar.set(Calendar.HOUR_OF_DAY, 4);
-        calendar.set(Calendar.MINUTE, 6);
-        alarmManager.setExact(AlarmManager.RTC_WAKEUP,
-                calendar.getTimeInMillis(), pi);
-        Log.i(TAG, "миднайт " + "context: " + context + " id: "  + " i: " + i);
+                PendingIntent.FLAG_ONE_SHOT);
+        alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP,
+                calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pi);
     }
 }

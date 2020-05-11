@@ -4,13 +4,11 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.util.Log;
 
+import com.example.android.try2.DB.DailyDB.DailyDB;
 import com.example.android.try2.DB.MedDB.MedDB;
-import com.example.android.try2.DB.MedDB.MedData;
 
-import static androidx.constraintlayout.widget.Constraints.TAG;
-
+//Изменяет
 public class DailyResetReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(final Context context, Intent intent) {
@@ -19,7 +17,8 @@ public class DailyResetReceiver extends BroadcastReceiver {
             public void run() {
                 MedDB medDB = MedDB.getInstance(context.getApplicationContext());
                 medDB.medDao().changestate();
-                Log.i(TAG, "миднайт рисивд");
+                DailyDB dailyDB = DailyDB.getInstance(context.getApplicationContext());
+                dailyDB.dailyDao().changestate();
             }
         });
     }

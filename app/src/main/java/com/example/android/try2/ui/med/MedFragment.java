@@ -1,17 +1,15 @@
 package com.example.android.try2.ui.med;
 
-import android.app.AlarmManager;
-import android.app.PendingIntent;
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.view.ViewTreeObserver;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -22,22 +20,25 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.android.try2.DB.MedDB.MedData;
+import com.example.android.try2.MainActivity;
 import com.example.android.try2.R;
+import com.example.android.try2.ReminderManager;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.Calendar;
 import java.util.List;
+import java.util.StringTokenizer;
 
 import static android.app.Activity.RESULT_OK;
+import static androidx.constraintlayout.widget.Constraints.TAG;
 
 public class MedFragment extends Fragment {
     private MedViewModel medViewModel;
+    int activeTasks;
+    int completedTasks;
     public static final int ADD_MED_REQUEST = 1;
     public static final int EDIT_MED_REQUEST = 2;
-    PendingIntent pi;
-    BroadcastReceiver br;
-    AlarmManager am;
-    Context _context;
+
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -79,17 +80,28 @@ public class MedFragment extends Fragment {
                     medData.setState(1);
                     medViewModel.update(medData);
                 }
-            }
-        });
-        Button button = rootView.findViewById(R.id.temp);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                medViewModel.changeState();
+                AsyncTask.execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        completedTasks = medViewModel.getInactiveCount();
+                    }
+                });
             }
         });
 
-        FloatingActionButton fab = (FloatingActionButton)this.getActivity().findViewById(R.id.floating_button);
+        rootView.getViewTreeObserver()
+                .addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                    @Override
+                    public void onGlobalLayout() {
+                        ProgressBar progressBar = rootView.findViewById(R.id.progressBar);
+                        TextView textView = rootView.findViewById(R.id.progressText);
+                        progressBar.setMax(medAdapter.getItemCount());
+                        progressBar.setProgress(completedTasks);
+                        textView.setText(completedTasks + "/" + medAdapter.getItemCount());
+                    }
+                });
+
+        FloatingActionButton fab = this.getActivity().findViewById(R.id.floating_button);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -110,39 +122,56 @@ public class MedFragment extends Fragment {
             String time = data.getStringExtra(AddMedActivity.MED_TIME);
             String image = data.getStringExtra(AddMedActivity.MED_IMAGE);
             int state = data.getIntExtra(AddMedActivity.MED_STATE, 1);
-
             MedData medData = new MedData(title, image, time, state);
             medViewModel.insert(medData);
+            StringTokenizer tokens = new StringTokenizer(time, ":");
+            int hour = Integer.valueOf(tokens.nextToken());
+            int minute = Integer.valueOf(tokens.nextToken());
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTimeInMillis(System.currentTimeMillis());
+            calendar.set(Calendar.HOUR_OF_DAY, hour);
+            calendar.set(Calendar.MINUTE, minute);
+            int id = medData.getId();
+            ReminderManager.setReminder(getActivity().getApplicationContext(), id, title, calendar, 1);
         } else if (requestCode == EDIT_MED_REQUEST && resultCode == RESULT_OK){
-            int id = data.getIntExtra(EditMedActivity.MED_ID, -1);
-            if (id == -1) {
-                Toast.makeText(getActivity(), "Нет задания", Toast.LENGTH_LONG).show();
-                return;
-            }
             String title = data.getStringExtra(EditMedActivity.MED_TEXT);
             String time = data.getStringExtra(EditMedActivity.MED_TIME);
             String image = data.getStringExtra(EditMedActivity.MED_IMAGE);
             int state = data.getIntExtra(EditMedActivity.MED_STATE, 1);
-
-
             MedData medData = new MedData(title, image, time, state);
-            medData.setId(id);
             medViewModel.update(medData);
+            StringTokenizer tokens = new StringTokenizer(time, ":");
+            int hour = Integer.valueOf(tokens.nextToken());
+            int minute = Integer.valueOf(tokens.nextToken());
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTimeInMillis(System.currentTimeMillis());
+            calendar.set(Calendar.HOUR_OF_DAY, hour);
+            calendar.set(Calendar.MINUTE, minute);
+            int id = medData.getId();
+            ReminderManager.setReminder(getActivity().getApplicationContext(), id, title, calendar, 1);
 
-            Toast.makeText(getActivity(), "Лекарство обновлено", Toast.LENGTH_LONG).show();
         } else if (requestCode == EDIT_MED_REQUEST && resultCode == 12) {
+            final String title = data.getStringExtra(EditMedActivity.MED_TEXT);
+            String time = data.getStringExtra(EditMedActivity.MED_TIME);
             final int id = data.getIntExtra(EditMedActivity.MED_ID, -1);
+            StringTokenizer tokens = new StringTokenizer(time, ":");
+            int hour = Integer.valueOf(tokens.nextToken());
+            int minute = Integer.valueOf(tokens.nextToken());
+            final Calendar calendar = Calendar.getInstance();
+            calendar.setTimeInMillis(System.currentTimeMillis());
+            calendar.set(Calendar.HOUR_OF_DAY, hour);
+            calendar.set(Calendar.MINUTE, minute);
             AsyncTask.execute(new Runnable() {
                 @Override
                 public void run() {
                     MedData medData = medViewModel.findMedById(id);
                     medViewModel.delete(medData);
+                    ReminderManager.setReminder(getActivity().getApplicationContext(), id, title, calendar, 2);
                 }
             });
         } else {
-            Toast.makeText(getActivity(), "Лекарство отменено: ", Toast.LENGTH_LONG).show();
+            Toast.makeText(getActivity(), "Лекарство отредактировано", Toast.LENGTH_LONG).show();
         }
     }
-
 }
 

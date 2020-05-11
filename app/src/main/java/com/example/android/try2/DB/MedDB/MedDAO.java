@@ -33,4 +33,10 @@ public interface MedDAO {
 
     @Query("UPDATE med_table SET state = 1")
     void changestate();
+
+    @Query("SELECT COUNT(*) FROM MED_TABLE WHERE state=1")
+    int getActiveCount();
+
+    @Query("SELECT COUNT(*) FROM MED_TABLE WHERE state=2")
+    int getInactiveCount();
 }

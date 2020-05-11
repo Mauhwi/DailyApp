@@ -9,6 +9,7 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
+
 //абстрактный класс, использующий builder из состава room для создания таблицы
 @Database(entities = DailyData.class, version = 1)
 public abstract class DailyDB extends RoomDatabase {
@@ -29,6 +30,13 @@ public abstract class DailyDB extends RoomDatabase {
         }
         return instance;
     }
+
+    private void resetDaily() {
+        DailyDao dailyDao;
+        dailyDao = instance.dailyDao();
+        dailyDao.changestate();
+    }
+
     //добавляем пример заполнения задания при создании таблицы
     private static RoomDatabase.Callback roomCallback = new RoomDatabase.Callback() {
         @Override

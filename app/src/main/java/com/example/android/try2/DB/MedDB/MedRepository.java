@@ -13,6 +13,8 @@ public class MedRepository {
     private LiveData<List<MedData>> allMeds;
     private LiveData<List<MedData>> doneMeds;
     private MedData medById;
+    private int activeCount;
+    private int inActiveCount;
 
     public MedRepository(Application application) {
         MedDB db = MedDB.getInstance(application);
@@ -45,6 +47,16 @@ public class MedRepository {
     public MedData findMedById(int id) {
         medById = medDao.findMedById(id);
         return medById;
+    }
+
+    public int getActiveCount() {
+        activeCount = medDao.getActiveCount();
+        return  activeCount;
+    }
+
+    public int getInactiveCount() {
+        inActiveCount = medDao.getInactiveCount();
+        return  inActiveCount;
     }
 
     //Асинхронные задания
