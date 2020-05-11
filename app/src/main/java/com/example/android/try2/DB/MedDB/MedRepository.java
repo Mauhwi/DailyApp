@@ -49,11 +49,6 @@ public class MedRepository {
         return medById;
     }
 
-    public int getActiveCount() {
-        activeCount = medDao.getActiveCount();
-        return  activeCount;
-    }
-
     public int getInactiveCount() {
         inActiveCount = medDao.getInactiveCount();
         return  inActiveCount;

@@ -34,7 +34,6 @@ import static androidx.constraintlayout.widget.Constraints.TAG;
 
 public class MedFragment extends Fragment {
     private MedViewModel medViewModel;
-    int activeTasks;
     int completedTasks;
     public static final int ADD_MED_REQUEST = 1;
     public static final int EDIT_MED_REQUEST = 2;
@@ -93,6 +92,12 @@ public class MedFragment extends Fragment {
                 .addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
                     @Override
                     public void onGlobalLayout() {
+                        AsyncTask.execute(new Runnable() {
+                            @Override
+                            public void run() {
+                                completedTasks = medViewModel.getInactiveCount();
+                            }
+                        });
                         ProgressBar progressBar = rootView.findViewById(R.id.progressBar);
                         TextView textView = rootView.findViewById(R.id.progressText);
                         progressBar.setMax(medAdapter.getItemCount());
