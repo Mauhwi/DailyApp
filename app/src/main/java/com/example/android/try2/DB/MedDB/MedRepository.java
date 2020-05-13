@@ -13,7 +13,6 @@ public class MedRepository {
     private LiveData<List<MedData>> allMeds;
     private LiveData<List<MedData>> doneMeds;
     private MedData medById;
-    private int activeCount;
     private int inActiveCount;
 
     public MedRepository(Application application) {

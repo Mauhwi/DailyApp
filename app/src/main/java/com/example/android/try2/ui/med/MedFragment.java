@@ -3,7 +3,6 @@ package com.example.android.try2.ui.med;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +19,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.android.try2.DB.MedDB.MedData;
-import com.example.android.try2.MainActivity;
 import com.example.android.try2.R;
 import com.example.android.try2.ReminderManager;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -30,7 +28,6 @@ import java.util.List;
 import java.util.StringTokenizer;
 
 import static android.app.Activity.RESULT_OK;
-import static androidx.constraintlayout.widget.Constraints.TAG;
 
 public class MedFragment extends Fragment {
     private MedViewModel medViewModel;
@@ -41,7 +38,7 @@ public class MedFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        final View rootView = inflater.inflate(R.layout.fragment_dashboard, container, false);
+        final View rootView = inflater.inflate(R.layout.fragment_med, container, false);
         final RecyclerView recyclerView = rootView.findViewById(R.id.recycler_view_med);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setHasFixedSize(true);

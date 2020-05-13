@@ -18,7 +18,7 @@ public class ReminderManager {
         if (alarmCode == 1) {
             AlarmManager alarmManager = (AlarmManager) context
                 .getSystemService(Context.ALARM_SERVICE);
-            Intent i = new Intent(context, OnAlarmReceiver.class);
+            Intent i = new Intent(context, AlarmReceiver.class);
             i.putExtra(EXTRA_TEXT, title);
             i.putExtra(EXTRA_ID, dailyId);
             i.putExtra(EXTRA_CODE, alarmCode);
@@ -31,7 +31,7 @@ public class ReminderManager {
         } else {
             AlarmManager alarmManager = (AlarmManager) context
                     .getSystemService(Context.ALARM_SERVICE);
-            Intent i = new Intent(context, OnAlarmReceiver.class);
+            Intent i = new Intent(context, AlarmReceiver.class);
             i.putExtra(EXTRA_TEXT, title);
             i.putExtra(EXTRA_ID, dailyId);
             i.putExtra(EXTRA_CODE, alarmCode);
@@ -54,7 +54,7 @@ public class ReminderManager {
         }
         AlarmManager alarmManager = (AlarmManager) context
                 .getSystemService(Context.ALARM_SERVICE);
-        Intent i = new Intent(context, DailyResetReceiver.class);
+        Intent i = new Intent(context, DailyReset.class);
         PendingIntent pi = PendingIntent.getBroadcast(context, 0, i,
                 PendingIntent.FLAG_ONE_SHOT);
         alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP,

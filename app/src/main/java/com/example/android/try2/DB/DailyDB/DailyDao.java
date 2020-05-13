@@ -30,12 +30,6 @@ public interface DailyDao {
     @Query("SELECT * FROM DAILY_TABLE WHERE state=2")
     LiveData<List<DailyData>> getInactiveDailies();
 
-    @Query("SELECT * FROM DAILY_TABLE")
-    LiveData<List<DailyData>> getAllDailies();
-
-    @Query("SELECT * FROM DAILY_TABLE WHERE ID = :id ")
-    DailyData findDailyById(int id);
-
     @Query("UPDATE DAILY_TABLE SET state = 1")
     void changestate();
 }

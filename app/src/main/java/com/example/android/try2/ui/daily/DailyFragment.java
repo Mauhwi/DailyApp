@@ -1,7 +1,5 @@
 package com.example.android.try2.ui.daily;
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.AsyncTask;
@@ -43,7 +41,7 @@ public class DailyFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
-        final View rootView = inflater.inflate(R.layout.fragment_home, container, false);
+        final View rootView = inflater.inflate(R.layout.fragment_daily, container, false);
         //активные
         final RecyclerView recyclerView = rootView.findViewById(R.id.recycler_view_daily);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -114,6 +112,8 @@ public class DailyFragment extends Fragment {
                     calendar.setTimeInMillis(System.currentTimeMillis());
                     calendar.set(Calendar.HOUR_OF_DAY, hour);
                     calendar.set(Calendar.MINUTE, minute);
+                    dailyData.setNotificationState(1);
+                    dailyViewModel.update(dailyData);
 
                     ReminderManager.setReminder(getActivity().getApplicationContext(), id, title, calendar, 1);
 
@@ -129,6 +129,8 @@ public class DailyFragment extends Fragment {
                     calendar.setTimeInMillis(System.currentTimeMillis());
                     calendar.set(Calendar.HOUR_OF_DAY, hour);
                     calendar.set(Calendar.MINUTE, minute);
+                    dailyData.setNotificationState(2);
+                    dailyViewModel.update(dailyData);
 
                     ReminderManager.setReminder(getActivity().getApplicationContext(), id, title, calendar, 2);
 
@@ -215,7 +217,7 @@ public class DailyFragment extends Fragment {
             String time = data.getStringExtra(EditDailyActivity.EXTRA_TIME);
             String details = data.getStringExtra(EditDailyActivity.EXTRA_DETAILS);
             int state = data.getIntExtra(EditDailyActivity.EXTRA_STATE, 1);
-            DailyData dailyData = new DailyData(title, details, time, state);
+            DailyData dailyData = new DailyData(title, details, time, state,2);
             dailyData.setId(id);
             dailyViewModel.update(dailyData);
 
@@ -226,59 +228,56 @@ public class DailyFragment extends Fragment {
             calendar.setTimeInMillis(System.currentTimeMillis());
             calendar.set(Calendar.HOUR_OF_DAY, hour);
             calendar.set(Calendar.MINUTE, minute);
-            ReminderManager.setReminder(getActivity().getApplicationContext(), id, title, calendar, 1);
+            ReminderManager.setReminder(getActivity().getApplicationContext(), id, title, calendar, 2);
 
         } else if (requestCode == EDIT_DAILY_REQUEST && resultCode == 12) {
             final int id = data.getIntExtra(EditDailyActivity.EXTRA_ID, -1);
-            AsyncTask.execute(new Runnable() {
-                @Override
-                public void run() {
-                    DailyData dailyData = dailyViewModel.findDailyById(id);
-                    String title = dailyData.getTitle();
-                    String time = dailyData.getTime();
-                    StringTokenizer tokens = new StringTokenizer(time, ":");
-                    int hour = Integer.valueOf(tokens.nextToken());
-                    int minute = Integer.valueOf(tokens.nextToken());
-                    Calendar calendar = Calendar.getInstance();
-                    calendar.setTimeInMillis(System.currentTimeMillis());
-                    calendar.set(Calendar.HOUR_OF_DAY, hour);
-                    calendar.set(Calendar.MINUTE, minute);
-                    ReminderManager.setReminder(getActivity().getApplicationContext(), id, title, calendar, 2);
-                    dailyViewModel.delete(dailyData);
-                }
-            });
+            String title = data.getStringExtra(EditDailyActivity.EXTRA_TEXT);
+            String time = data.getStringExtra(EditDailyActivity.EXTRA_TIME);
+            String details = data.getStringExtra(EditDailyActivity.EXTRA_DETAILS);
+            int state = data.getIntExtra(EditDailyActivity.EXTRA_STATE, 1);
+            DailyData dailyData = new DailyData(title, details, time, state,2);
+            dailyData.setId(id);
+            StringTokenizer tokens = new StringTokenizer(time, ":");
+            int hour = Integer.valueOf(tokens.nextToken());
+            int minute = Integer.valueOf(tokens.nextToken());
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTimeInMillis(System.currentTimeMillis());
+            calendar.set(Calendar.HOUR_OF_DAY, hour);
+            calendar.set(Calendar.MINUTE, minute);
+            ReminderManager.setReminder(getActivity().getApplicationContext(), id, title, calendar, 2);
+            dailyViewModel.delete(dailyData);
         } else if (requestCode == EDIT_DAILY_REQUEST && resultCode == 345) {
-            final int id = data.getIntExtra(EditDailyActivity.EXTRA_ID, -1);
-            AsyncTask.execute(new Runnable() {
-                @Override
-                public void run() {
-                    DailyData dailyData = dailyViewModel.findDailyById(id);
-                    String title = dailyData.getTitle();
-                    String time = dailyData.getTime();
-                    StringTokenizer tokens = new StringTokenizer(time, ":");
-                    int hour = Integer.valueOf(tokens.nextToken());
-                    int minute = Integer.valueOf(tokens.nextToken());
-                    Calendar calendar = Calendar.getInstance();
-                    calendar.setTimeInMillis(System.currentTimeMillis());
-                    calendar.set(Calendar.HOUR_OF_DAY, hour);
-                    calendar.set(Calendar.MINUTE, minute);
-                    if (dailyData.getState() == 1) {
-                        dailyData.setState(2);
-                        dailyViewModel.update(dailyData);
-                        ReminderManager.setReminder(getActivity().getApplicationContext(), id, title, calendar, 2);
-                    } else {
-                        dailyData.setState(1);
-                        dailyViewModel.update(dailyData);
-                    }
-                }
-            });
+            int id = data.getIntExtra(EditDailyActivity.EXTRA_ID, -1);
+            String title = data.getStringExtra(EditDailyActivity.EXTRA_TEXT);
+            String time = data.getStringExtra(EditDailyActivity.EXTRA_TIME);
+            String details = data.getStringExtra(EditDailyActivity.EXTRA_DETAILS);
+            int state = data.getIntExtra(EditDailyActivity.EXTRA_STATE, 1);
+            DailyData dailyData = new DailyData(title, details, time, state,2);
+            dailyData.setId(id);
+            StringTokenizer tokens = new StringTokenizer(time, ":");
+            int hour = Integer.valueOf(tokens.nextToken());
+            int minute = Integer.valueOf(tokens.nextToken());
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTimeInMillis(System.currentTimeMillis());
+            calendar.set(Calendar.HOUR_OF_DAY, hour);
+            calendar.set(Calendar.MINUTE, minute);
+            dailyData.getState();
+            ReminderManager.setReminder(getActivity().getApplicationContext(), id, title, calendar, 2);
+            if (dailyData.getState() == 1) {
+                dailyData.setState(2);
+                dailyViewModel.update(dailyData);
+            } else {
+                dailyData.setState(1);
+                dailyViewModel.update(dailyData);
+            }
         } else if (requestCode == ADD_DAILY_REQUEST && resultCode == RESULT_OK) {
             String title = data.getStringExtra(AddDailyActivity.EXTRA_TEXT);
             String time = data.getStringExtra(AddDailyActivity.EXTRA_TIME);
             String details = data.getStringExtra(AddDailyActivity.EXTRA_DETAILS);
             int state = data.getIntExtra(AddDailyActivity.EXTRA_STATE, 1);
 
-            DailyData dailyData = new DailyData(title, details, time, state);
+            DailyData dailyData = new DailyData(title, details, time, state,2);
             dailyViewModel.insert(dailyData);
         }
 
@@ -286,6 +285,5 @@ public class DailyFragment extends Fragment {
         else {
             Toast.makeText(getActivity(), "Задание отредактировано", Toast.LENGTH_LONG).show();
         }
-        //todo kot blet
     }
 }

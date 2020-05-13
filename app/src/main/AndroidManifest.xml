@@ -28,10 +28,10 @@
         </activity>
 
         <receiver
-            android:name=".OnAlarmReceiver"
+            android:name=".AlarmReceiver"
             android:exported="false" />
         <receiver
-            android:name=".DailyResetReceiver"
+            android:name=".DailyReset"
             android:exported="false" />
     </application>
 

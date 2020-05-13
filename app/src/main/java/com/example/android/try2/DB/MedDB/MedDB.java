@@ -27,12 +27,6 @@ public abstract class MedDB extends RoomDatabase {
         return instance;
     }
 
-    private void resetDaily() {
-        MedDAO medDAO;
-        medDAO = instance.medDao();
-        medDAO.changestate();
-    }
-
     private static RoomDatabase.Callback roomCallback = new RoomDatabase.Callback() {
         @Override
         public void onCreate(@NonNull SupportSQLiteDatabase db) {

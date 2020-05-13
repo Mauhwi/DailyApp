@@ -7,7 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 
 
-public class OnAlarmReceiver extends BroadcastReceiver {
+public class AlarmReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         NotificationManager mgr = (NotificationManager) context

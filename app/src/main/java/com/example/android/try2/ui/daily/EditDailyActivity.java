@@ -88,8 +88,14 @@ public class EditDailyActivity extends AppCompatActivity {
 
     private void deleteDaily() {
         int id = getIntent().getIntExtra(EXTRA_ID, -1);
+        String title =  editTextTitle.getText().toString();
+        String time = editTextTime.getText().toString();
+        String details = editTextDetails.getText().toString();
         Intent data = new Intent();
         data.putExtra(EXTRA_ID, id);
+        data.putExtra(EXTRA_TEXT, title);
+        data.putExtra(EXTRA_TIME, time);
+        data.putExtra(EXTRA_DETAILS, details);
         setResult(12, data);
         finish();
     }
@@ -123,8 +129,16 @@ public class EditDailyActivity extends AppCompatActivity {
 
     private void changeStateDaily() {
         int id = getIntent().getIntExtra(EXTRA_ID, -1);
+        String title =  editTextTitle.getText().toString();
+        String time = editTextTime.getText().toString();
+        String details = editTextDetails.getText().toString();
+        int state = getIntent().getIntExtra(EXTRA_STATE, 1);
         Intent data = new Intent();
         data.putExtra(EXTRA_ID, id);
+        data.putExtra(EXTRA_TEXT, title);
+        data.putExtra(EXTRA_TIME, time);
+        data.putExtra(EXTRA_DETAILS, details);
+        data.putExtra(EXTRA_STATE, state);
         setResult(345, data);
         finish();
 

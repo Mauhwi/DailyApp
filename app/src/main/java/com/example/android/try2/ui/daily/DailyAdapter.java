@@ -19,7 +19,6 @@ public class DailyAdapter extends RecyclerView.Adapter<DailyAdapter.DailyHolder>
     private List<DailyData> dailies = new ArrayList<>();
     private onItemClickListener listener;
 
-
     @NonNull
     @Override
     public DailyHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -34,9 +33,13 @@ public class DailyAdapter extends RecyclerView.Adapter<DailyAdapter.DailyHolder>
         holder.textViewDaily.setText(currentDaily.getTitle());
         holder.textViewTime.setText(currentDaily.getTime());
         holder.textViewDescription.setText(currentDaily.getDescription());
-        //TODO: вроде не надо оно уже, я ничего не помню
-        holder.checkBox.setTag(dailies.get(position));
-
+        if (currentDaily.getNotificationState() == 1) {
+            holder.notificationState = true;
+            holder.notification.setChecked(true);
+        } else {
+            holder.notificationState = false;
+            holder.notification.setChecked(false);
+        }
         if (currentDaily.getState() == 1) {
             holder.checkBox.setChecked(false);
         } else {
@@ -45,7 +48,6 @@ public class DailyAdapter extends RecyclerView.Adapter<DailyAdapter.DailyHolder>
         }
 
     }
-
     @Override
     public int getItemCount() {
         return dailies.size();
@@ -56,14 +58,13 @@ public class DailyAdapter extends RecyclerView.Adapter<DailyAdapter.DailyHolder>
         notifyDataSetChanged();
     }
 
-
     class DailyHolder extends RecyclerView.ViewHolder {
         private TextView textViewDaily;
         private TextView textViewTime;
         private TextView textViewDescription;
         private CheckBox checkBox;
         private CheckBox notification;
-
+        private boolean notificationState;
 
         public DailyHolder(@NonNull View itemView) {
             super(itemView);
@@ -94,8 +95,8 @@ public class DailyAdapter extends RecyclerView.Adapter<DailyAdapter.DailyHolder>
                 @Override
                 public void onClick(View view) {
                     int position = getAdapterPosition();
-                    boolean state = notification.isChecked();
-                    listener.notificationOnClick(dailies.get(position), state);
+                    notificationState = notification.isChecked();
+                    listener.notificationOnClick(dailies.get(position), notificationState);
                 }
             });
 

@@ -9,7 +9,7 @@ import com.example.android.try2.DB.DailyDB.DailyDB;
 import com.example.android.try2.DB.MedDB.MedDB;
 
 //Изменяет
-public class DailyResetReceiver extends BroadcastReceiver {
+public class DailyReset extends BroadcastReceiver {
     @Override
     public void onReceive(final Context context, Intent intent) {
         AsyncTask.execute(new Runnable() {
