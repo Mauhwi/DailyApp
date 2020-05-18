@@ -16,11 +16,16 @@ import android.widget.Toast;
 import com.example.android.try2.R;
 
 public class EditDailyActivity extends AppCompatActivity {
-    public static final String EXTRA_ID = "com.example.android.try2.EXTRA_ID";
-    public static final String EXTRA_TEXT = "com.example.android.try2.EXTRA_TEXT";
-    public static final String EXTRA_TIME = "com.example.android.try2.EXTRA_TIME";
-    public static final String EXTRA_DETAILS = "com.example.android.try2.EXTRA_DETAILS";
-    public static final String EXTRA_STATE = "com.example.android.try2.EXTRA_STATE";
+    public static final String EXTRA_ID =
+            "com.example.android.try2.EXTRA_ID";
+    public static final String EXTRA_TEXT =
+            "com.example.android.try2.EXTRA_TEXT";
+    public static final String EXTRA_TIME =
+            "com.example.android.try2.EXTRA_TIME";
+    public static final String EXTRA_DETAILS =
+            "com.example.android.try2.EXTRA_DETAILS";
+    public static final String EXTRA_STATE =
+            "com.example.android.try2.EXTRA_STATE";
 
     private EditText editTextTitle;
     private EditText editTextTime;
@@ -64,16 +69,20 @@ public class EditDailyActivity extends AppCompatActivity {
         deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(EditDailyActivity.this, R.style.AlertDialogCustom);
+                AlertDialog.Builder builder = new AlertDialog
+                        .Builder(EditDailyActivity.this,
+                        R.style.AlertDialogCustom);
                 builder.setMessage("Удалить задание?")
                         .setCancelable(false)
-                        .setPositiveButton("ОК", new DialogInterface.OnClickListener() {
+                        .setPositiveButton("ОК",
+                                new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 deleteDaily();
                                 EditDailyActivity.this.finish();
                             }
                         })
-                        .setNegativeButton("Отмена", new DialogInterface.OnClickListener() {
+                        .setNegativeButton("Отмена",
+                                new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 dialog.cancel();
                             }
@@ -82,8 +91,6 @@ public class EditDailyActivity extends AppCompatActivity {
                 alert.show();
             }
         });
-
-
     }
 
     private void deleteDaily() {
@@ -100,18 +107,19 @@ public class EditDailyActivity extends AppCompatActivity {
         finish();
     }
 
-
     private void updateDaily() {
         String title =  editTextTitle.getText().toString();
         String time = editTextTime.getText().toString();
         String details = editTextDetails.getText().toString();
         int state = getIntent().getIntExtra(EXTRA_STATE, 1);
 
-        if (title.trim().isEmpty() || time.trim().isEmpty() || details.trim().isEmpty()) {
-            Toast.makeText(this, "Пожалуйста введите задание, время и детали", Toast.LENGTH_SHORT).show();
+        if (title.trim().isEmpty() || time.trim().isEmpty() || details.trim()
+                .isEmpty()) {
+            Toast.makeText(this, "Пожалуйста введите задание, " +
+                    "время и детали", Toast.LENGTH_SHORT).show();
             return;
         }
-        //передача в main activity через intent
+        //передача в DailyFragment через intent
         Intent data = new Intent();
         data.putExtra(EXTRA_TEXT, title);
         data.putExtra(EXTRA_TIME, time);
@@ -141,6 +149,5 @@ public class EditDailyActivity extends AppCompatActivity {
         data.putExtra(EXTRA_STATE, state);
         setResult(345, data);
         finish();
-
     }
 }

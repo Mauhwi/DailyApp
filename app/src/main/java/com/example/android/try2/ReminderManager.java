@@ -22,7 +22,6 @@ public class ReminderManager {
             i.putExtra(EXTRA_TEXT, title);
             i.putExtra(EXTRA_ID, dailyId);
             i.putExtra(EXTRA_CODE, alarmCode);
-            //Flag indicating that if the described PendingIntent already exists, the current one should be canceled before generating a new one
             PendingIntent pi = PendingIntent.getBroadcast(context, dailyId, i,
                     PendingIntent.FLAG_UPDATE_CURRENT);
             alarmManager.setExact(AlarmManager.RTC_WAKEUP,
@@ -41,7 +40,6 @@ public class ReminderManager {
             alarmManager.cancel(pi);
         }
     }
-
     //Метод вызова AlarmManager каждый день приблизительно в полночь
     public static void midnight(Context context) {
         Calendar timeNow = Calendar.getInstance();

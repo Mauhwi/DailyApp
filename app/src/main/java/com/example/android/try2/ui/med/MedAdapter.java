@@ -2,8 +2,6 @@ package com.example.android.try2.ui.med;
 
 
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,13 +12,11 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.android.try2.DB.MedDB.MedData;
+import com.example.android.try2.DB.MedData.MedData;
 import com.example.android.try2.R;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static androidx.constraintlayout.widget.Constraints.TAG;
 
 public class MedAdapter extends RecyclerView.Adapter<MedAdapter.MedHolder>{
     private List<MedData> meds = new ArrayList<>();
@@ -40,10 +36,11 @@ public class MedAdapter extends RecyclerView.Adapter<MedAdapter.MedHolder>{
         holder.textViewMedTime.setText(currentMed.getTime());
         //Поиск Id изображения из String
         int picId = holder.itemView.getContext().getResources()
-                .getIdentifier(currentMed.getImage(), "drawable", holder.itemView.getContext()
-                        .getApplicationContext().getPackageName());
+                .getIdentifier(currentMed.getImage(), "drawable",
+                        holder.itemView.getContext().getApplicationContext().getPackageName());
+        if (currentMed.getImage() == "image1") {
         holder.imageMed.setImageResource(picId);
-        Log.i(TAG, "Айди: " + picId);
+        }
         if (currentMed.getState() == 1) {
             holder.checkboxMed.setChecked(false);
             holder.textViewMedName.setTextColor(Color.BLACK);

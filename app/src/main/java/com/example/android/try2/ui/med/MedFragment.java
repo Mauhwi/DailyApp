@@ -18,7 +18,7 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.android.try2.DB.MedDB.MedData;
+import com.example.android.try2.DB.MedData.MedData;
 import com.example.android.try2.R;
 import com.example.android.try2.ReminderManager;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -126,13 +126,7 @@ public class MedFragment extends Fragment {
             int state = data.getIntExtra(AddMedActivity.MED_STATE, 1);
             MedData medData = new MedData(title, image, time, state);
             medViewModel.insert(medData);
-            StringTokenizer tokens = new StringTokenizer(time, ":");
-            int hour = Integer.valueOf(tokens.nextToken());
-            int minute = Integer.valueOf(tokens.nextToken());
-            Calendar calendar = Calendar.getInstance();
-            calendar.setTimeInMillis(System.currentTimeMillis());
-            calendar.set(Calendar.HOUR_OF_DAY, hour);
-            calendar.set(Calendar.MINUTE, minute);
+            Calendar calendar = timeConverter(time);
             int id = medData.getId();
             ReminderManager.setReminder(getActivity().getApplicationContext(), id, title, calendar, 1);
         } else if (requestCode == EDIT_MED_REQUEST && resultCode == RESULT_OK){
@@ -142,38 +136,33 @@ public class MedFragment extends Fragment {
             int state = data.getIntExtra(EditMedActivity.MED_STATE, 1);
             MedData medData = new MedData(title, image, time, state);
             medViewModel.update(medData);
-            StringTokenizer tokens = new StringTokenizer(time, ":");
-            int hour = Integer.valueOf(tokens.nextToken());
-            int minute = Integer.valueOf(tokens.nextToken());
-            Calendar calendar = Calendar.getInstance();
-            calendar.setTimeInMillis(System.currentTimeMillis());
-            calendar.set(Calendar.HOUR_OF_DAY, hour);
-            calendar.set(Calendar.MINUTE, minute);
+            Calendar calendar = timeConverter(time);
             int id = medData.getId();
             ReminderManager.setReminder(getActivity().getApplicationContext(), id, title, calendar, 1);
-
         } else if (requestCode == EDIT_MED_REQUEST && resultCode == 12) {
-            final String title = data.getStringExtra(EditMedActivity.MED_TEXT);
+
+            String title = data.getStringExtra(EditMedActivity.MED_TEXT);
             String time = data.getStringExtra(EditMedActivity.MED_TIME);
-            final int id = data.getIntExtra(EditMedActivity.MED_ID, -1);
-            StringTokenizer tokens = new StringTokenizer(time, ":");
-            int hour = Integer.valueOf(tokens.nextToken());
-            int minute = Integer.valueOf(tokens.nextToken());
-            final Calendar calendar = Calendar.getInstance();
-            calendar.setTimeInMillis(System.currentTimeMillis());
-            calendar.set(Calendar.HOUR_OF_DAY, hour);
-            calendar.set(Calendar.MINUTE, minute);
-            AsyncTask.execute(new Runnable() {
-                @Override
-                public void run() {
-                    MedData medData = medViewModel.findMedById(id);
-                    medViewModel.delete(medData);
-                    ReminderManager.setReminder(getActivity().getApplicationContext(), id, title, calendar, 2);
-                }
-            });
+            String image = data.getStringExtra(EditMedActivity.MED_IMAGE);
+            int id = data.getIntExtra(EditMedActivity.MED_ID, -1);
+            int state = data.getIntExtra(AddMedActivity.MED_STATE, 1);
+            Calendar calendar = timeConverter(time);
+            MedData medData = new MedData(title, image, time, state);
+            medData.setId(id);
+            ReminderManager.setReminder(getActivity().getApplicationContext(), id, title, calendar, 2);
         } else {
             Toast.makeText(getActivity(), "Лекарство отредактировано", Toast.LENGTH_LONG).show();
         }
+    }
+    private Calendar timeConverter(String time) {
+        StringTokenizer tokens = new StringTokenizer(time, ":");
+        int hour = Integer.valueOf(tokens.nextToken());
+        int minute = Integer.valueOf(tokens.nextToken());
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(System.currentTimeMillis());
+        calendar.set(Calendar.HOUR_OF_DAY, hour);
+        calendar.set(Calendar.MINUTE, minute);
+        return calendar;
     }
 }
 

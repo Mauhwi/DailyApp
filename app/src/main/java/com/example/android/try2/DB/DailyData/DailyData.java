@@ -1,26 +1,29 @@
-package com.example.android.try2.DB.MedDB;
+package com.example.android.try2.DB.DailyData;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 //класс базы данных SQLite
-@Entity(tableName = "med_table")
-public class MedData {
+@Entity(tableName = "daily_table")
+public class DailyData {
     @PrimaryKey(autoGenerate = true)
     private int id;
     private String title;
-    private String image;
+    private String description;
     private String time;
     @ColumnInfo(defaultValue = "1")
     private int state;
+    @ColumnInfo(defaultValue = "2")
+    private int notificationState;
 
     //конструктор
-    public MedData(String title, String image, String time, int state) {
+    public DailyData(String title, String description, String time, int state, int notificationState) {
         this.title = title;
-        this.image = image;
+        this.description = description;
         this.time = time;
         this.state = state;
+        this.notificationState = notificationState;
     }
     //сеттер
     public void setId(int id) {
@@ -29,6 +32,10 @@ public class MedData {
 
     public void setState(int state) {
         this.state = state;
+    }
+
+    public void setNotificationState(int notificationState) {
+        this.notificationState=notificationState;
     }
 
     //геттеры
@@ -40,8 +47,8 @@ public class MedData {
         return title;
     }
 
-    public String getImage() {
-        return image;
+    public String getDescription() {
+        return description;
     }
 
     public String getTime() {
@@ -50,5 +57,9 @@ public class MedData {
 
     public int getState() {
         return state;
+    }
+
+    public int getNotificationState() {
+        return  notificationState;
     }
 }

@@ -1,4 +1,4 @@
-package com.example.android.try2.DB.DailyDB;
+package com.example.android.try2.DB.DailyData;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
@@ -18,6 +18,7 @@ public interface DailyDao {
 
     @Update
     void update(DailyData dailyData);
+
 
     @Delete
     void delete(DailyData dailyData);

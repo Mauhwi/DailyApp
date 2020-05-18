@@ -1,9 +1,11 @@
-package com.example.android.try2.DB.DailyDB;
+package com.example.android.try2.DB.DailyData;
 
 import android.app.Application;
 import android.os.AsyncTask;
 
 import androidx.lifecycle.LiveData;
+
+import com.example.android.try2.DB.DailyDB;
 
 import java.util.List;
 

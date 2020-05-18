@@ -6,8 +6,8 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
-import com.example.android.try2.DB.DailyDB.DailyData;
-import com.example.android.try2.DB.DailyDB.DailyRepository;
+import com.example.android.try2.DB.DailyData.DailyData;
+import com.example.android.try2.DB.DailyData.DailyRepository;
 
 import java.util.List;
 

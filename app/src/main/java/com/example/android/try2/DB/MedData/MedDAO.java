@@ -1,4 +1,4 @@
-package com.example.android.try2.DB.MedDB;
+package com.example.android.try2.DB.MedData;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;

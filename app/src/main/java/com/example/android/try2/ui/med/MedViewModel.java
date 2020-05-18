@@ -6,8 +6,8 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
-import com.example.android.try2.DB.MedDB.MedData;
-import com.example.android.try2.DB.MedDB.MedRepository;
+import com.example.android.try2.DB.MedData.MedData;
+import com.example.android.try2.DB.MedData.MedRepository;
 
 import java.util.List;
 
@@ -36,10 +36,6 @@ public class MedViewModel extends AndroidViewModel {
         return allMeds;
     }
 
-    public MedData findMedById(int id) {
-        MedData medById = medRepository.findMedById(id);
-        return medById;
-    }
 
     public int getInactiveCount() {
         int count = medRepository.getInactiveCount();

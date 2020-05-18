@@ -9,7 +9,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.android.try2.DB.DailyDB.DailyData;
+import com.example.android.try2.DB.DailyData.DailyData;
 import com.example.android.try2.R;
 
 import java.util.ArrayList;
@@ -34,10 +34,8 @@ public class DailyAdapter extends RecyclerView.Adapter<DailyAdapter.DailyHolder>
         holder.textViewTime.setText(currentDaily.getTime());
         holder.textViewDescription.setText(currentDaily.getDescription());
         if (currentDaily.getNotificationState() == 1) {
-            holder.notificationState = true;
             holder.notification.setChecked(true);
         } else {
-            holder.notificationState = false;
             holder.notification.setChecked(false);
         }
         if (currentDaily.getState() == 1) {
@@ -64,7 +62,6 @@ public class DailyAdapter extends RecyclerView.Adapter<DailyAdapter.DailyHolder>
         private TextView textViewDescription;
         private CheckBox checkBox;
         private CheckBox notification;
-        private boolean notificationState;
 
         public DailyHolder(@NonNull View itemView) {
             super(itemView);
@@ -95,8 +92,7 @@ public class DailyAdapter extends RecyclerView.Adapter<DailyAdapter.DailyHolder>
                 @Override
                 public void onClick(View view) {
                     int position = getAdapterPosition();
-                    notificationState = notification.isChecked();
-                    listener.notificationOnClick(dailies.get(position), notificationState);
+                    listener.notificationOnClick(dailies.get(position), notification.isChecked());
                 }
             });
 

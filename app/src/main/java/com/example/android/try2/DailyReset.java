@@ -5,8 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 
-import com.example.android.try2.DB.DailyDB.DailyDB;
-import com.example.android.try2.DB.MedDB.MedDB;
+import com.example.android.try2.DB.DailyDB;
 
 //Изменяет
 public class DailyReset extends BroadcastReceiver {
@@ -15,10 +14,9 @@ public class DailyReset extends BroadcastReceiver {
         AsyncTask.execute(new Runnable() {
             @Override
             public void run() {
-                MedDB medDB = MedDB.getInstance(context.getApplicationContext());
-                medDB.medDao().changestate();
                 DailyDB dailyDB = DailyDB.getInstance(context.getApplicationContext());
                 dailyDB.dailyDao().changestate();
+                dailyDB.medDao().changestate();
             }
         });
     }
