@@ -17,6 +17,7 @@ public class DailyReset extends BroadcastReceiver {
                 DailyDB dailyDB = DailyDB.getInstance(context.getApplicationContext());
                 dailyDB.dailyDao().changestate();
                 dailyDB.medDao().changestate();
+
             }
         });
     }

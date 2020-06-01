@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Try2</string>
+    <string name="app_name">Ежедневные задания и лекарства</string>
     <string name="title_home">Задания</string>
     <string name="title_dashboard">Лекарства</string>
     <string name="progress">Прогресс сегодня:</string>

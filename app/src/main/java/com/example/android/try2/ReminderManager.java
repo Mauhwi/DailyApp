@@ -9,7 +9,6 @@ import java.util.Calendar;
 public class ReminderManager {
     public static final String EXTRA_ID = "com.example.android.try2.EXTRA_ID";
     public static final String EXTRA_TEXT = "com.example.android.try2.EXTRA_TEXT";
-    public static final String EXTRA_CODE = "com.example.android.try2.EXTRA_CODE";
 
     private ReminderManager() {}
     public static void setReminder(Context context, int dailyId,
@@ -21,11 +20,15 @@ public class ReminderManager {
             Intent i = new Intent(context, AlarmReceiver.class);
             i.putExtra(EXTRA_TEXT, title);
             i.putExtra(EXTRA_ID, dailyId);
-            i.putExtra(EXTRA_CODE, alarmCode);
+            Calendar timeNow = Calendar.getInstance();
+            if(when.before(timeNow)){
+                when.add(Calendar.DATE, 1);
+            }
             PendingIntent pi = PendingIntent.getBroadcast(context, dailyId, i,
                     PendingIntent.FLAG_UPDATE_CURRENT);
-            alarmManager.setExact(AlarmManager.RTC_WAKEUP,
-                    when.getTimeInMillis(), pi);
+
+            alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,
+                    when.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pi);
         //или его удаление
         } else {
             AlarmManager alarmManager = (AlarmManager) context
@@ -33,7 +36,6 @@ public class ReminderManager {
             Intent i = new Intent(context, AlarmReceiver.class);
             i.putExtra(EXTRA_TEXT, title);
             i.putExtra(EXTRA_ID, dailyId);
-            i.putExtra(EXTRA_CODE, alarmCode);
             PendingIntent pi = PendingIntent.getBroadcast(context, dailyId, i,
                     PendingIntent.FLAG_UPDATE_CURRENT);
             pi.cancel();

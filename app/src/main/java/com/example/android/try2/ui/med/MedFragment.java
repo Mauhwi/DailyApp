@@ -123,33 +123,32 @@ public class MedFragment extends Fragment {
             String title = data.getStringExtra(AddMedActivity.MED_TEXT);
             String time = data.getStringExtra(AddMedActivity.MED_TIME);
             String image = data.getStringExtra(AddMedActivity.MED_IMAGE);
-            int state = data.getIntExtra(AddMedActivity.MED_STATE, 1);
-            MedData medData = new MedData(title, image, time, state);
+            MedData medData = new MedData(title, image, time, 1);
             medViewModel.insert(medData);
             Calendar calendar = timeConverter(time);
             int id = medData.getId();
             ReminderManager.setReminder(getActivity().getApplicationContext(), id, title, calendar, 1);
         } else if (requestCode == EDIT_MED_REQUEST && resultCode == RESULT_OK){
+            int id = data.getIntExtra(EditMedActivity.MED_ID, -1);
             String title = data.getStringExtra(EditMedActivity.MED_TEXT);
             String time = data.getStringExtra(EditMedActivity.MED_TIME);
             String image = data.getStringExtra(EditMedActivity.MED_IMAGE);
             int state = data.getIntExtra(EditMedActivity.MED_STATE, 1);
             MedData medData = new MedData(title, image, time, state);
+            medData.setId(id);
             medViewModel.update(medData);
             Calendar calendar = timeConverter(time);
-            int id = medData.getId();
             ReminderManager.setReminder(getActivity().getApplicationContext(), id, title, calendar, 1);
         } else if (requestCode == EDIT_MED_REQUEST && resultCode == 12) {
-
             String title = data.getStringExtra(EditMedActivity.MED_TEXT);
             String time = data.getStringExtra(EditMedActivity.MED_TIME);
             String image = data.getStringExtra(EditMedActivity.MED_IMAGE);
             int id = data.getIntExtra(EditMedActivity.MED_ID, -1);
-            int state = data.getIntExtra(AddMedActivity.MED_STATE, 1);
             Calendar calendar = timeConverter(time);
-            MedData medData = new MedData(title, image, time, state);
+            MedData medData = new MedData(title, image, time, 1);
             medData.setId(id);
             ReminderManager.setReminder(getActivity().getApplicationContext(), id, title, calendar, 2);
+            medViewModel.delete(medData);
         } else {
             Toast.makeText(getActivity(), "Лекарство отредактировано", Toast.LENGTH_LONG).show();
         }

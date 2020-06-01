@@ -22,7 +22,6 @@ public class AddMedActivity extends AppCompatActivity {
     public static final String MED_TEXT = "com.example.android.try2.MED_TEXT";
     public static final String MED_TIME = "com.example.android.try2.MED_TIME";
     public static final String MED_IMAGE = "com.example.android.try2.MED_IMAGE";
-    public static final String MED_STATE = "com.example.android.try2.MED_STATE";
 
     private EditText addMedTitle;
     private TextView addMedTime;
@@ -139,7 +138,6 @@ public class AddMedActivity extends AppCompatActivity {
         data.putExtra(MED_TEXT, title);
         data.putExtra(MED_TIME, time);
         data.putExtra(MED_IMAGE, imageResId);
-        data.putExtra(MED_STATE, state);
         setResult(RESULT_OK, data);
 
         finish();

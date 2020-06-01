@@ -21,15 +21,12 @@ public interface MedDAO {
     void delete(MedData medData);
 
     //метод наполнения списка активных заданий
-    @Query("SELECT * FROM MED_TABLE")
+    @Query("SELECT * FROM MED_TABLE ORDER BY state ASC, time(time) ASC")
     LiveData<List<MedData>> getAllMeds();
 
     //метод наполнения списка неактивных заданий
     @Query("SELECT * FROM MED_TABLE WHERE state=2")
     LiveData<List<MedData>> getInactiveMeds();
-
-    @Query("SELECT * FROM MED_TABLE WHERE ID = :id ")
-    MedData findMedById(int id);
 
     @Query("UPDATE med_table SET state = 1")
     void changestate();

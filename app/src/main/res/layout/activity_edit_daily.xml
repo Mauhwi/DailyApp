@@ -47,6 +47,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="Название"
+        android:backgroundTint="@color/colorPrimary"
         android:inputType="textPersonName"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:layout_below="@id/editAct" />
@@ -55,12 +56,14 @@
         android:id="@+id/editTimeText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:backgroundTint="@color/colorPrimary"
         android:ems="10"
         android:inputType="time"
         android:layout_below="@+id/editTitleText"
         android:hint="Время"/>
 
     <EditText
+        android:backgroundTint="@color/colorPrimary"
         android:id="@+id/editDetailsText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

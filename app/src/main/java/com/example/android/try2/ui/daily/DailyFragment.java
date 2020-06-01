@@ -39,7 +39,6 @@ public class DailyFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-
         final View rootView = inflater.inflate(R.layout.fragment_daily,
                 container, false);
         //активные
@@ -208,7 +207,6 @@ public class DailyFragment extends Fragment {
     }
 
     //обработка данных из AddDailyActivity и EditDailyActivity
-    //редактирование данных
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -281,11 +279,8 @@ public class DailyFragment extends Fragment {
                     .EXTRA_TIME);
             String details = data.getStringExtra(AddDailyActivity
                     .EXTRA_DETAILS);
-            int state = data.getIntExtra(AddDailyActivity
-                    .EXTRA_STATE, 1);
-
             DailyData dailyData = new DailyData(title, details, time,
-                    state, 2);
+                    1, 2);
             dailyViewModel.insert(dailyData);
         }
         //если закрыто с помощью кнопки назад
@@ -294,7 +289,6 @@ public class DailyFragment extends Fragment {
                     Toast.LENGTH_LONG).show();
         }
     }
-
     //конвертация времени из String в Calendar
     private Calendar timeConverter(String time) {
         StringTokenizer tokens = new StringTokenizer(time, ":");

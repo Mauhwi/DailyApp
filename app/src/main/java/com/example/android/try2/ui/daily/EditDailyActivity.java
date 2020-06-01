@@ -112,7 +112,6 @@ public class EditDailyActivity extends AppCompatActivity {
         String time = editTextTime.getText().toString();
         String details = editTextDetails.getText().toString();
         int state = getIntent().getIntExtra(EXTRA_STATE, 1);
-
         if (title.trim().isEmpty() || time.trim().isEmpty() || details.trim()
                 .isEmpty()) {
             Toast.makeText(this, "Пожалуйста введите задание, " +

@@ -145,7 +145,6 @@ public class EditMedActivity extends AppCompatActivity {
         finish();
     }
 
-
     private void updateMed() {
         String title =  editMedTitle.getText().toString();
         String time = editMedTime.getText().toString();
@@ -165,8 +164,6 @@ public class EditMedActivity extends AppCompatActivity {
         if (id != -1) {
             data.putExtra(MED_ID, id);
         }
-
-
 
         setResult(RESULT_OK, data);
         finish();

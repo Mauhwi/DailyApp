@@ -38,9 +38,7 @@ public class MedAdapter extends RecyclerView.Adapter<MedAdapter.MedHolder>{
         int picId = holder.itemView.getContext().getResources()
                 .getIdentifier(currentMed.getImage(), "drawable",
                         holder.itemView.getContext().getApplicationContext().getPackageName());
-        if (currentMed.getImage() == "image1") {
         holder.imageMed.setImageResource(picId);
-        }
         if (currentMed.getState() == 1) {
             holder.checkboxMed.setChecked(false);
             holder.textViewMedName.setTextColor(Color.BLACK);
@@ -52,7 +50,6 @@ public class MedAdapter extends RecyclerView.Adapter<MedAdapter.MedHolder>{
             holder.textViewMedTime.setBackgroundColor(Color.GRAY);
             holder.imageMed.setVisibility(View.INVISIBLE);
         }
-
     }
 
     @Override
@@ -112,7 +109,6 @@ public class MedAdapter extends RecyclerView.Adapter<MedAdapter.MedHolder>{
         void onItemClick(MedData medData);
         void checkboxViewOnClick(MedData medData,boolean state);
     }
-
 
     public void setOnItemClickListener(onItemClickListener listener) {
         this.listener = listener;

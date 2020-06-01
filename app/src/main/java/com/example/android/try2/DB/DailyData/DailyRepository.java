@@ -24,6 +24,7 @@ public class DailyRepository {
         allDailies = dailyDao.getActiveDailies();
         doneDailies = dailyDao.getInactiveDailies();
     }
+
     //методы для ViewModel
     public void insert(DailyData dailyData) {
         new InsertDailyAsyncTask(dailyDao).execute(dailyData);
